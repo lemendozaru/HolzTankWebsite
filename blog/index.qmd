@@ -6,6 +6,7 @@ listing:
   type: grid
   categories: true
   fields: [image, title, description, categories, file-modified]
+  feed: true
 ---
 
 Entradas del blog.

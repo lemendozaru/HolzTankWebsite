@@ -1,6 +1,8 @@
 project:
   type: website
   output-dir: _site
+  resources:
+    - "robots.txt"
   render:
     - "*.qmd"
 
@@ -31,6 +33,9 @@ website:
         text: Acerca de
     logo: files/V4.png
     tools:
+        - icon: rss
+          href: blog/index.xml
+          aria-label: RSS
         - icon: github
           href: https://github.com/lemendozaru
         - icon: bluesky
@@ -39,10 +44,8 @@ website:
           href: https://masto.es/@lemendozar
 
   page-footer:
-    left: "CopyLeft. Luis Mendoza"
-    right:
-      - text: "Feed RSS"
-        href: blog/index.xml
+    left: "© 2025 Luis Mendoza. Este sitio está bajo una licencia CC BY-NC-SA 4.0."
+    right: "El código fuente de los ejemplos se ofrece bajo licencia MIT."
 
 
 format:

@@ -32,36 +32,36 @@ El sitio está en construcción, por lo que de momento parecerá estar muy vací
 
 ## Ciencia de Datos
 
-Material y contenido para las materias de ITI, LNI, TID, IDIA y CIA.
+Tutoriales con R, Python y otros lenguajes emergentes.
 
-- Nivel: Todos los cuatrimestres.
+- Nivel: Todos.
 - Herramientas: Las necesarias.
 
-[Entrar al material →](asignaturas.qmd)
+[Entrar al listado →](blog/data/index.qmd)
 :::
 
 ::: {.g-col-4 .card style="padding: 1rem;"}
 
 ## Sistemas Embebidos
 
-Material y contenido extracurricular.
+Material sobre el Internet de las Cosas, incluyendo diagramas y código.
 
 - Nivel: Cualquiera.
 - Herramientas: Las necesarias.
 
-[Entrar a los cursos →](cursos.qmd)
+[Accede a los materiales →](blog/embebidos/index.qmd)
 :::
 
 ::: {.g-col-4 .card style="padding: 1rem;"}
 
 ## Desarrollo de Juegos
 
-Fuera de tópico, simplemente cosas.
+Entradas sobre el desarrollo de distintos géneros en Godot Engine.
 
 - Nivel: Cualquiera.
-- Herramientas: Algunas.
+- Herramientas: Godot Engine.
 
-[Entrar al blog →](blog/index.qmd)
+[Lee las entradas →](blog/gamedev/index.qmd)
 :::
 
 :::
