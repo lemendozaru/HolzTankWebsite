@@ -1,0 +1,67 @@
+project:
+  type: website
+  output-dir: _site
+  render:
+    - "*.qmd"
+
+website:
+  title: "HolzTank"
+  site-url: "https://holztank.top"
+  description: "Un sitio hecho con Quarto."
+  favicon: "files/favicon-256x256.png"
+  back-to-top-navigation: true
+  navbar:
+    left:
+      - href: blog/index.qmd
+        text: Blog
+      - href: blog/data/index.qmd
+        text: DataScience
+      - href: blog/embebidos/index.qmd
+        text: Embebidos
+      - href: blog/gamedev/index.qmd
+        text: GameDev
+      - href: blog/linux/index.qmd
+        text: Linux
+      - href: blog/documents/index.qmd
+        text: Ofimática
+    right:
+      - href: pages/recursos.qmd
+        text: Recursos
+      - href: about.qmd
+        text: Acerca de
+    logo: files/V4.png
+    tools:
+        - icon: github
+          href: https://github.com/lemendozaru
+        - icon: bluesky
+          href: https://bsky.app/profile/lemendozar.bsky.social
+        - icon: mastodon
+          href: https://masto.es/@lemendozar
+
+  page-footer:
+    left: "CopyLeft. Luis Mendoza"
+    right:
+      - text: "Feed RSS"
+        href: blog/index.xml
+
+
+format:
+  html:
+    theme:
+        light: cosmo
+        dark: [cosmo, theme-dark.scss]
+    respect-user-color-scheme: true
+    code-fold: true
+    css: styles.css
+    highlight-style: github
+    toc: true
+    toc-title: "En esta página:"
+    link-external-newwindow: true
+
+execute:
+  freeze: auto
+  warning: false
+  message: false
+
+
+

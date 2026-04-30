@@ -1,0 +1,72 @@
+---
+title: "Bienvenido a HolzTank"
+listing:
+  contents: "blog/entradas"
+  type: default
+  sort: "date desc"
+  fields: [title, date, description]
+  categories: true
+---
+
+## Tutoriales que espero te sirvan (y funcionen)
+
+Y deben funcionar, porque el código está probado. Es poco, pero es trabajo honesto.
+
+## Lo que encontrarás aquí
+
+El sitio está en construcción, por lo que de momento parecerá estar muy vacío. Pero se estará poblando pronto de contenido, lo prometo. Lo proyectado es incluir material sobre:
+
+- **Python**: pandas, numpy, automatización, sympy
+- **R**: tidyverse, ggplot2
+- **Julia**: DataFrames.jl, primeros pasos
+- **Godot**: GDScript, juegos 2D y 3D, aplicaciones de escritorio
+- **C++**: programación de sistemas embebidos
+- **Latex**: elaboración de documentos técnicos y académicos
+- **Ofimática**: las aplicaciones de oficina de toda la vida
+
+¡Ah! Holztank no significa nada en realidad, o probablemente sí. Solo uní dos palabras: Holz, que es "madera" en alemán y Tank, "tanque" en inglés. Es para cuando me entra la curiosidad de la carpintereada.
+
+::: {.grid}
+
+::: {.g-col-4 .card style="padding: 1rem;"}
+
+## Ciencia de Datos
+
+Material y contenido para las materias de ITI, LNI, TID, IDIA y CIA.
+
+- Nivel: Todos los cuatrimestres.
+- Herramientas: Las necesarias.
+
+[Entrar al material →](asignaturas.qmd)
+:::
+
+::: {.g-col-4 .card style="padding: 1rem;"}
+
+## Sistemas Embebidos
+
+Material y contenido extracurricular.
+
+- Nivel: Cualquiera.
+- Herramientas: Las necesarias.
+
+[Entrar a los cursos →](cursos.qmd)
+:::
+
+::: {.g-col-4 .card style="padding: 1rem;"}
+
+## Desarrollo de Juegos
+
+Fuera de tópico, simplemente cosas.
+
+- Nivel: Cualquiera.
+- Herramientas: Algunas.
+
+[Entrar al blog →](blog/index.qmd)
+:::
+
+:::
+
+
+## Últimas entradas
+
+Acá abajo estarán apareciendo las últimas publicaciones.

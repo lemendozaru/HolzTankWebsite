@@ -1,0 +1,19 @@
+---
+title: "Recursos"
+description: "Herramientas, libros, enlaces para aprender Python, R, Julia, Godot y Pygame."
+---
+
+## Mi configuración
+
+### Editor
+
+[Kate](https://kate-editor.org/es/)
+
+### Herramientas
+
+[Quarto](https://quarto.org)
+
+### Cheatsheets
+
+[Godot](/assets/cheatsheets/godot.qmd)
+

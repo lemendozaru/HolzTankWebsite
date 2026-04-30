@@ -1,0 +1,30 @@
+---
+title: "¿Quién vive?"
+image: files/IGordo.jpg
+about:
+  template: jolla
+  links:
+    - icon: github
+      text: Github
+      href: https://github.com/lemendozaru
+    - icon: mastodon
+      text: Mastodon
+      href: https://masto.es/@lemendozar
+    - icon: youtube
+      text: Youtube
+      href: https://www.youtube.com/@Holztank
+    - icon: bluesky
+      text: Bluesky
+      href: https://bsky.app/profile/lemendozar.bsky.social
+---
+
+# Luis Mendoza
+
+Hola. Este es mi sitio personal.
+
+Actualmente profesor de asignatura en las carreras de Ingeniería en Tecnologías de la Información y Licenciatura en Negocios Internacionales.
+
+Entusiasta de las máquinas CNC, los circuitos electrónicos, los videojuegos y la Ciencia de Datos. También de la Historia. Ah, y dueño de un gato infernal.
+
+Cúlpenme de todo lo que quieran, pero jamás de ser reguetonero. Aquí estaré subiendo el material de mis cursos, algunas publicaciones referentes a los mismos y posteos medio aleatorios que se vayan dando.
+

@@ -1,0 +1,33 @@
+---
+title: "Cosas de Linux"
+date: 2026-04-29
+categories: [Linux, Manjaro, ArchLinux]
+---
+
+En ocasiones toca reinstalar todo el sistema operativo. Y en otras simplemente corresponde tratar de hacer limpieza del sistema. Como he decidido agarrar esto como un repositorio de cosas que me da pereza volver a buscar, lo pongo acá.
+
+Bien, para borrar la caché completa de *Pacman* toca ejecutar esta cosa:
+
+```bash
+sudo pacman -Sc
+```
+
+Y si me salta la cosa de que algo está bloqueado porque no sé qué, pues toca:
+
+```bash
+sudo rm /var/lib/pacman/db.lck
+```
+
+Por otro lado, si lo que quiero es enlistar paquetes huérfanos (como yo), toca ejecutar primero esto:
+
+```bash
+sudo pacman -Qtdq
+```
+
+para verificar que sí los haya. Sabiendo que sí, les damos cuello con:
+
+```bash
+sudo pacman -Rsn $(pacman -Qtdq)
+```
+
+Y ya. Vuelvo en un futuro incierto.

@@ -1,0 +1,9 @@
+---
+title: "Mi Primer Post"
+date: 2026-04-26
+categories: [Estado de la cosa]
+---
+
+![La cosa](media/charro.jpg)
+
+Bienvenido al blog. Esto es el hola mundo de esta cosa.

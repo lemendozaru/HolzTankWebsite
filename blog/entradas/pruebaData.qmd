@@ -1,0 +1,7 @@
+---
+title: "Prueba de Ciencia de Datos"
+date: 2026-04-29
+categories: [Ciencia de Datos, Python]
+---
+
+Pues esto, solo una prueba.

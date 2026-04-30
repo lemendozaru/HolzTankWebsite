@@ -1,0 +1,13 @@
+---
+title: "Cosas que he ido instalando"
+date: 2026-04-29
+categories: [Quarto, LaTex]
+---
+
+Pretendo estar volviendo a esta entrada de manera frecuente. Aquí estaré escribiendo qué he ido instalando para generar el sitio y los documentos. Nunca he sido especialmente bueno con las ilustraciones, principalmente porque me da flojera. Así que como buen perezoso, confío en que LaTex y Quarto me hagan la chamba mediante código. Primera cosa que instalo para ver si me ahorra chamba: *Diagram Generator*. Lo hice con
+
+```bash
+quarto install extension pandoc-ext/diagram
+```
+
+Ya estaré viendo si me sirve o si me meto en más problemas de los que resuelvo. Vuelvo en un futuro incierto.

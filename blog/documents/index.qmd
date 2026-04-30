@@ -1,0 +1,11 @@
+---
+title: "Ofimática"
+listing:
+  contents: "../entradas/*.qmd"
+  type: grid
+  sort: "date desc"
+  fields: [title, date, description, image]
+  categories: true
+  include:
+    categories: Ofimática           # ← Filtro clave
+---

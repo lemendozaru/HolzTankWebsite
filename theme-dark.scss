@@ -1,0 +1,24 @@
+/*-- scss:defaults --*/
+
+// Colores base del modo oscuro
+$body-bg: #181818 !default;
+$body-color: #e8e8e8 !default;
+$link-color: #5bc0de !default;
+
+// Navbar (importante porque Cosmo tiene navbar clara)
+$navbar-bg: #0f0f0f !default;
+$navbar-dark-color: rgba(255,255,255,0.7) !default;
+$navbar-dark-hover-color: #5bc0de !default;
+$navbar-dark-active-color: #5bc0de !default;
+
+// Bloques de código
+$code-block-bg-alpha: -0.8 !default;  // Oscurece el fondo
+$code-color: #e83e8c !default;
+
+// Tarjetas y popovers
+$card-bg: #222222 !default;
+$popover-bg: #222222 !default;
+$popover-body-color: #e8e8e8 !default;
+
+// Bordes
+$border-color: #333333 !default;

@@ -1,0 +1,57 @@
+---
+title: "Godot 4 - GDScript"
+description: "Referencia rápida de sintaxis, nodos comunes y atajos para Godot 4"
+format: html
+---
+
+# Cheatsheet de Godot 4
+
+## Nodos más importantes
+
+| Nodo | Para qué sirve |
+|:-----|:----------------|
+| `Node2D` | Base para objetos 2D |
+| `CharacterBody2D` | Jugador o enemigo con física personalizada |
+| `RigidBody2D` | Objeto afectado por gravedad/física |
+| `Area2D` | Detecta colisiones sin aplicar física |
+| `Sprite2D` | Muestra una imagen/textura |
+| `CollisionShape2D` | Define la forma de colisión |
+| `Camera2D` | Cámara que sigue al jugador |
+| `Timer` | Cuenta regresiva |
+| `AnimationPlayer` | Controla animaciones |
+| `CanvasLayer` | UI que no se mueve con la cámara |
+
+---
+
+## Sintaxis básica de GDScript
+
+```gdscript
+# Variables
+var health = 100
+var player_name := "Hero"           # Inferencia de tipo
+@export var speed := 300.0          # Visible en el editor
+
+# Constantes
+const GRAVITY = 980.0
+
+# Enums
+enum State { IDLE, RUN, JUMP, FALL }
+
+# Funciones
+func _ready():
+    print("Nodo listo")
+
+func _process(delta):
+    # Se ejecuta cada frame
+    position.x += speed * delta
+
+func _physics_process(delta):
+    # Para movimiento con física
+    pass
+
+# Señales (firmas)
+signal health_changed(new_health)
+func take_damage(amount):
+    health -= amount
+    health_changed.emit(health)
+```

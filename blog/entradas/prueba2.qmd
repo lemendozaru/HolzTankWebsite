@@ -1,0 +1,13 @@
+---
+title: "Todo parece ir bien"
+date: 2026-04-27
+categories: [Estado de la cosa]
+---
+
+![¿Gato?](media/gato.jpg)
+
+Pues bien, esta es la segunda entrada del blog y todo parece ir, sospechosamente, bien.
+
+Pues bien, esta es la segunda entrada del blog y todo parece ir, sospechosamente, bien. Estaré actualizando las asignaturas y los cursos, considerando que los de Godot ya los tengo terminados, solo es cuestión de ir adaptándolos a esta nueva modalidad "en línea". Era fan de los archivos PDF pero veo que para los tiempos que corren, ya no son tan prácticos como creia.
+
+En fin, toca chamba.

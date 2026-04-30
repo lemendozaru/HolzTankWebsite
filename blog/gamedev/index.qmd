@@ -1,0 +1,11 @@
+---
+title: "Desarrollo de Videojuegos"
+listing:
+  contents: "../entradas/*.qmd"
+  type: grid
+  sort: "date desc"
+  fields: [title, date, description, image]
+  categories: true
+  include:
+    categories: Desarrollo de videojuegos           # ← Filtro clave
+---

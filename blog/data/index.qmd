@@ -1,0 +1,11 @@
+---
+title: "Ciencia de Datos"
+listing:
+  contents: "../entradas/*.qmd"
+  type: grid
+  sort: "date desc"
+  fields: [title, date, description, image]
+  categories: true
+  include:
+    categories: Ciencia de Datos           # ← Filtro clave
+---

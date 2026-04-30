@@ -1,0 +1,51 @@
+---
+title: "Cursos"
+---
+
+A continuación muestro el listado de cursos. Espero poder ir actualizándolos conforme vaya siendo necesario. Sugiero que se abran mediante clic derecho y abrir en nueva pestaña, ya que se pierde el acceso a la página principal al entrar a cada curso. Podría arreglarlo, pero la vida es demasiado corta para ello.
+
+## Desarrollo de videojuegos
+
+::: {.grid}
+
+::: {.g-col-4 .card style="padding: 1rem;"}
+
+## Introducción a Godot
+
+Minijuegos en 2D y 3D.
+
+- Nivel: Principiante.
+- Herramientas: Godot.
+
+[Entrar al curso →](cursos/introGodot/)
+:::
+
+::: {.g-col-4 .card style="padding: 1rem;"}
+
+## Plataformas 2D
+
+Minijuego de plataformas con assets públicos.
+
+- Nivel: Principiante.
+- Herramientas: Godot.
+
+[Entrar al curso →](cursos/plataformas2D/)
+:::
+
+::: {.g-col-4 .card style="padding: 1rem;"}
+
+## Metroidvania
+
+Juego estilo Metroidvania en Godot.
+
+- Nivel: Intermedio.
+- Herramientas: Godot.
+
+[Entrar al curso →](cursos/metroidvania/)
+:::
+
+:::
+
+
+
+

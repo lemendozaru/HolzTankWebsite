@@ -1,0 +1,11 @@
+---
+title: Blog
+listing:
+  contents: entradas
+  sort: "date desc"
+  type: grid
+  categories: true
+  fields: [image, title, description, categories, file-modified]
+---
+
+Entradas del blog.
