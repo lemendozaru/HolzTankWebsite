@@ -1,33 +1,35 @@
 ---
-title: "Cosas de Linux"
+title: "Limpieza de paquetes en Manjaro"
 date: 2026-04-29
 categories: [Linux, Manjaro, ArchLinux]
 ---
 
-En ocasiones toca reinstalar todo el sistema operativo. Y en otras simplemente corresponde tratar de hacer limpieza del sistema. Como he decidido agarrar esto como un repositorio de cosas que me da pereza volver a buscar, lo pongo acá.
+![Búscame una vida, pacman](media/buscaVida.png)
 
-Bien, para borrar la caché completa de *Pacman* toca ejecutar esta cosa:
+En ocasiones toca reinstalar todo el sistema operativo porque ya tenemos armado todo un desastre. Pero en otras simplemente corresponde hacer limpieza del sistema. Veamos cómo limpiar la caché de Pacman y eliminar los paquetes huérfanos (que son aquellos que no son dependencias de alguno más).
+
+Bien, para borrar completamente la caché de *Pacman* (ya no permitirá instalar versiones anteriores de los programas, avisados quedamos), toca ejecutar esta sentencia en la terminal:
 
 ```bash
 sudo pacman -Sc
 ```
 
-Y si me salta la cosa de que algo está bloqueado porque no sé qué, pues toca:
+Y si nos salta el aviso de que algo está bloqueado, pues toca:
 
 ```bash
 sudo rm /var/lib/pacman/db.lck
 ```
 
-Por otro lado, si lo que quiero es enlistar paquetes huérfanos (como yo), toca ejecutar primero esto:
+Aunque muchas veces basta con simplemente esperar un rato. Por otro lado, si lo que queremos es saber si tenemos paquetes huérfanos, ejecutamos primero esto:
 
 ```bash
 sudo pacman -Qtdq
 ```
 
-para verificar que sí los haya. Sabiendo que sí, les damos cuello con:
+Sabiendo que sí tenemos, entonces los eliminamos con:
 
 ```bash
 sudo pacman -Rsn $(pacman -Qtdq)
 ```
 
-Y ya. Vuelvo en un futuro incierto.
+Y ya. Cabe recordar que todo esto es para fines de limpieza y pues que sepamos lo que estamos haciendo.
