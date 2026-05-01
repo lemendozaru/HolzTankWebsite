@@ -1,6 +1,7 @@
 ---
 title: "Limpieza de paquetes en Manjaro"
 date: 2026-04-29
+date-modified: 2026-04-29
 categories: [Linux, Manjaro, ArchLinux]
 ---
 
@@ -33,3 +34,5 @@ sudo pacman -Rsn $(pacman -Qtdq)
 ```
 
 Y ya. Cabe recordar que todo esto es para fines de limpieza y pues que sepamos lo que estamos haciendo.
+
+{{< include giscus.html >}}

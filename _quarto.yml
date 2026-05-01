@@ -50,6 +50,11 @@ website:
 
 format:
   html:
+    embed-resources: false
+    include-in-header:
+      - text: |
+          <script data-goatcounter="https://holztank.goatcounter.com/count"
+          async src="//gc.zgo.at/count.js"></script>
     theme:
         light: cosmo
         dark: [cosmo, theme-dark.scss]
