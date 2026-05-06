@@ -1,0 +1,62 @@
+---
+title: "Encendiendo un led"
+date: 2026-04-30
+categories: [Embebidos, esp32, C++, microPython]
+---
+
+## Lo necesario
+
+- Tablilla de prototipado
+- ESP32 / cable USB
+- Led
+- Resistencia de 220R
+- Dos cables macho-hembra
+
+## Circuito
+
+Es el más básico. Solo hay que asegurarse de siempre conectar una resistencia al led, puede ser en cualquiera de sus terminales, aunque por costumbre la conectamos a la tierra de este (la terminal corta).
+
+![Encendiendo un led](media/practica01.png)
+
+## Código en C++
+
+Ya una vez armado nuestro circuito, pasamos a programarlo. El código necesario es:
+
+```cpp
+// Código que solo corre al inicio
+void setup() {
+  pinMode(2, OUTPUT); // Pin 2 como salida
+}
+
+// Código que se estará ejecutando indefinidamente
+void loop() {
+  digitalWrite(2, HIGH); // Enciende el pin 2
+  delay(1000); // durante un segundo.
+  digitalWrite(2, LOW); // Apaga el pin 2
+  delay(500); // durante otro segundo
+}
+```
+
+## Código en MicroPython
+
+```python
+# Importamos los módulos necesarios
+import machine
+import time
+
+# Declaramos el pin 2 como salida
+led = machine.Pin(2, machine.Pin.OUT)
+
+# Ejecutamos un ciclo
+while True:
+    # Enciende el led
+    led.on()
+    # por un segundo
+    time.sleep(1)
+    # Apaga el led
+    led.off()
+    # por otro segundo
+    time.sleep(1)
+```
+
+{{< include giscus.html >}}

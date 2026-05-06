@@ -1,0 +1,13 @@
+---
+title: "TexLive"
+date: 2026-05-04
+date-modified: 2026-05-04
+draft: true
+categories: [Educación, Linux]
+---
+
+Hay que instalar
+
+```bash
+sudo pacman -S texlive-latex
+```

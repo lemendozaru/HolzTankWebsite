@@ -1,0 +1,9 @@
+---
+title: "Introducción a exeLearning"
+date: 2026-05-02
+date-modified: 2026-05-02
+draft: true
+categories: [Educación, Linux]
+---
+
+Para revisar.

@@ -1,0 +1,9 @@
+---
+title: "Inteligencia Artificial en la esp32"
+date: 2026-05-02
+date-modified: 2026-05-02
+draft: true
+categories: [Embebidos, esp32, C++, microPython]
+---
+
+Borrador sobre el tema. Inspirado en la entrada [hwlibre](https://www.hwlibre.com/agentes-de-ia-local-en-esp32-frameworks-proyectos-y-limites/)
