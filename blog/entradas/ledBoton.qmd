@@ -1,0 +1,31 @@
+---
+title: "Encendiendo un led con un botón"
+date: 2026-05-06
+date-modified: 2026-05-06
+categories: [Embebidos, esp32, C++]
+---
+
+![Encendiendo un led presionando un botón](media/ledBoton.png)
+
+```cpp
+const int boton = 13;
+const int led = 2;
+int estado_boton = 0;
+
+void setup() {
+  Serial.begin(115200);
+  pinMode(boton, INPUT_PULLUP);
+  pinMode(led, OUTPUT);
+}
+
+void loop() {
+  int estado_boton = digitalRead(boton);
+  if (estado_boton == LOW) {
+    Serial.println(estado_boton);
+    digitalWrite(led, HIGH);
+  }
+  else {
+    digitalWrite(led, LOW);
+  }
+}
+```

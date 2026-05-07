@@ -1,6 +1,7 @@
 ---
 title: "Encendiendo un led"
 date: 2026-04-30
+date-modified: 2026-05-06
 categories: [Embebidos, esp32, C++, microPython]
 ---
 
@@ -23,16 +24,19 @@ Es el más básico. Solo hay que asegurarse de siempre conectar una resistencia 
 Ya una vez armado nuestro circuito, pasamos a programarlo. El código necesario es:
 
 ```cpp
+// Declaración de variables
+const int led = 2;
+
 // Código que solo corre al inicio
 void setup() {
-  pinMode(2, OUTPUT); // Pin 2 como salida
+  pinMode(ledPin, OUTPUT); // Pin 2 como salida
 }
 
 // Código que se estará ejecutando indefinidamente
 void loop() {
-  digitalWrite(2, HIGH); // Enciende el pin 2
+  digitalWrite(led, HIGH); // Enciende el pin 2
   delay(1000); // durante un segundo.
-  digitalWrite(2, LOW); // Apaga el pin 2
+  digitalWrite(led, LOW); // Apaga el pin 2
   delay(500); // durante otro segundo
 }
 ```
