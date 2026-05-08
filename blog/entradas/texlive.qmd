@@ -1,13 +1,48 @@
 ---
 title: "TexLive"
 date: 2026-05-04
-date-modified: 2026-05-04
+date-modified: 2026-05-08
 draft: true
-categories: [Educación, Linux]
+categories: [Ofimática, Linux]
 ---
+
+## Instalando texlive
+
+Si estamos en Linux, especialmente ArchLinux o sus derivadas, la instalación de un entorno de "desarrollo" para *LaTex* puede ser un tanto más sencilla que en otros sistemas operativos. Sin embargo, también depende, aunque en menor medida, del entorno de escritorio que estemos utilizando. En mi caso, en el día a día uso *KDE Plasma*, por lo que la elección para editar documentos es *Kile*. Pero toca instalar antes una distribución *LaTex*, que será *texlive*.
 
 Hay que instalar
 
 ```bash
-sudo pacman -S texlive-latex
+sudo pacman -S texlive-latex texlive-latexrecommended
+```
+
+Esto nos dejará tener un sistema básico y funcional. Pero como hablamos y escribimos en español, toca incluir un paquete más:
+
+```bash
+sudo pacman -S texlive-langspanish
+```
+
+Ahora sí, nos ponemos a instalar *Kile*:
+
+```bash
+sudo pacman -S kile
+```
+
+Ejecutamos Kile y lo primero que nos mostrará será su "Verificador del sistema", el cual es un cuadro de diálogo que revisará si podemos renderizar documentos en tiempo real en nuestro equipo. Presionamos *Siguiente* y esperamos a que escanee nuestro equipo. Si seguimos los pasos anteriores, debería pasar todas las pruebas. Dejamos seleccionadas las tres opciones que nos muestra y clicamos en *Aceptar*.
+
+## Probando la instalación
+
+Nos vamos al menú *Archivo -> Nuevo* o presionamos {{<kbd Ctrl+N>}} y clicamos en *Archivo vacío* y en *Aceptar*. Para poder ver la vista en vivo, debemos guardar el archivo en *Archivo -> Guardar* o presionamos {{<kbd Ctrl+S>}}. Kile nos indicará que hay algo mal, pero vamos a ignorarlo. Marca error al renderizar porque no hay algo que renderice. Lo guardamos donde deseémos con el nombre `prueba` y comenzamos a escribir lo siguiente:
+
+```latex
+\documentclass{article}
+\begin{document}
+ ¡Hola, mundo!
+\end{document}
+```
+
+Le damos en *Guardar* y a la derecha debe verse nuestro documento en su "forma final". Si queremos generar el documento PDF, nos vamos a la pestaña *Konsole* que está abajo a la izquierda y escribimos
+
+```bash
+pdflatex prueba
 ```
