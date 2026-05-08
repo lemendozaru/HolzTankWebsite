@@ -1,0 +1,32 @@
+---
+title: "Encendiendo un led gradualmente (con un pot)"
+date: 2026-05-07
+date-modified: 2026-05-07
+categories: [Embebidos, esp32, C++]
+---
+
+![Encendiendo gradualmente un led con un pot](media/ledPot.png)
+
+```cpp
+int led = 16;
+int pot = 4;
+int valorpot = 0;
+int valorled = 0;
+
+void setup()
+{
+  Serial.begin(9600);
+}
+
+void loop()
+{
+  valorpot = analogRead(pot);
+  valorled = map(valorpot, 0, 4095, 0, 255);
+  analogWrite(led, valorled);
+  Serial.print("Lectura del pot = ");
+  Serial.print(valorpot);
+  Serial.print("\t Brillo del led = ");
+  Serial.println(valorled);
+  delay(2);
+}
+```

@@ -1,0 +1,32 @@
+---
+title: "Lectura de valores de un potenciómetro"
+date: 2026-05-07
+date-modified: 2026-05-07
+categories: [Embebidos, esp32, C++]
+---
+
+## Circuito
+
+Realizaremos la lectura de los valores de un potenciómetro. Es importante saber que este es un dispositivo analógico, por lo que la lectura sí permite valores graduales (no solamente unos y ceros).
+
+![Leyendo los valores del pot](media/pot.png)
+
+void setup() // Se ejecuta cada vez que el Arduino se inicia
+{
+  pinMode(34, INPUT);
+  Serial.begin(115200); //Inicia comunicación serial
+  delay(1000);
+}
+//------------------------------------
+//Funcion cíclica
+//------------------------------------
+void loop() // Esta funcion se mantiene ejecutando
+{
+ // cuando este energizado el Arduino
+//Guardar en una variable entera el valor del potenciómetro 0 a 1023
+int valor = analogRead(34);
+//Imprime en la consola serial el valor de la variable
+Serial.println(valor);
+//Retardo para la visualización de datos en la consola
+delay(500);
+}

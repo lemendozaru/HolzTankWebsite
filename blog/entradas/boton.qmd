@@ -1,0 +1,29 @@
+---
+title: "Lectura de valores de un potenciómetro"
+date: 2026-05-07
+date-modified: 2026-05-07
+categories: [Embebidos, esp32, C++]
+---
+
+## Circuito
+
+Estaremos utilizando un botón *switch* y leeremos su estado, imprimiéndolo mediante el monitor serial. Haremos uso de la propiedad *pull up* de los pines de la ESP32 para así prescindir de una resistencia en el circuito.
+
+![Leyendo el estado de un botón](media/boton.png)
+
+## Código
+
+```cpp
+const int boton = 13;
+
+void setup() {
+  Serial.begin(115200);
+  pinMode(boton, INPUT_PULLUP);
+}
+
+void loop() {
+  int estado_boton = digitalRead(boton);
+  Serial.println(estado_boton);
+}
+```
+

@@ -1,11 +1,17 @@
 ---
 title: "Encendiendo un led con un botón"
 date: 2026-05-06
-date-modified: 2026-05-06
+date-modified: 2026-05-07
 categories: [Embebidos, esp32, C++]
 ---
 
+## Circuito
+
+Combinaremos lo aprendido con el led y el botón para controlar al primero con el segundo.
+
 ![Encendiendo un led presionando un botón](media/ledBoton.png)
+
+## Código
 
 ```cpp
 const int boton = 13;
