@@ -5,6 +5,10 @@ date-modified: 2026-05-07
 categories: [Embebidos, esp32, C++]
 ---
 
+## Circuito
+
+Controlaremos el brillo del led tras manipular el potenciómetro.
+
 ![Encendiendo gradualmente un led con un pot](media/ledPot.png)
 
 ```cpp
