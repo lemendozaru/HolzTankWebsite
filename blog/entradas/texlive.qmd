@@ -2,9 +2,10 @@
 title: "TexLive"
 date: 2026-05-04
 date-modified: 2026-05-08
-draft: true
-categories: [Ofimática, Linux]
+categories: [Ofimática, Linux, LaTex]
 ---
+
+![Hola, mundo en LaTex](media/latexHMundo.png)
 
 ## Instalando texlive
 
@@ -32,7 +33,7 @@ Ejecutamos Kile y lo primero que nos mostrará será su "Verificador del sistema
 
 ## Probando la instalación
 
-Nos vamos al menú *Archivo -> Nuevo* o presionamos {{<kbd Ctrl+N>}} y clicamos en *Archivo vacío* y en *Aceptar*. Para poder ver la vista en vivo, debemos guardar el archivo en *Archivo -> Guardar* o presionamos {{<kbd Ctrl+S>}}. Kile nos indicará que hay algo mal, pero vamos a ignorarlo. Marca error al renderizar porque no hay algo que renderice. Lo guardamos donde deseémos con el nombre `prueba` y comenzamos a escribir lo siguiente:
+Nos vamos al menú *Archivo -> Nuevo* o presionamos {{<kbd Ctrl+N>}} y clicamos en *Archivo vacío* y en *Aceptar*. Para poder ver la vista en vivo, debemos guardar el archivo en *Archivo -> Guardar* o presionamos {{<kbd Ctrl+S>}}. Kile nos indicará que hay algo mal, pero vamos a ignorarlo. Marca error al renderizar porque no hay algo que renderice. Lo guardamos donde deseemos con el nombre `prueba` (el programa agregará la extensión `.tex`) y comenzamos a escribir lo siguiente:
 
 ```latex
 \documentclass{article}
@@ -46,3 +47,5 @@ Le damos en *Guardar* y a la derecha debe verse nuestro documento en su "forma f
 ```bash
 pdflatex prueba
 ```
+
+Esto debe hacer que aparezca el archivo en el mismo sitio donde guardamos `prueba.tex`. Y ya está, hemos creado nuestro primer documento `LaTex`.
