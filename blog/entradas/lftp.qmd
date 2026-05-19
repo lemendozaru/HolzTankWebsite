@@ -65,4 +65,6 @@ EDIT: Pues resulta que FileZilla sí funciona, pero como mi proveedor de hosting
 
 EDIT 2: Ahora la transferencia es lentísima. Más de 30 segundos para volver a conectarse al servidor. Esto no era así hace un par de semanas.
 
+EDIT 3: Vuelvo a `lftp`, pero ahora con el uso de scripts que incluyan notificaciones de escritorio (en KDE Plasma) y quizá un arreglo a lo lento que se han vuelto las transferencias. Veremos qué tal.
+
 Repito, cosas de la vida.
