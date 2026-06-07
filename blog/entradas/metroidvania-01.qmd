@@ -1,0 +1,28 @@
+---
+title: "Configurando Godot para un Metroidvania genérico"
+date: 2026-06-07
+date-modified: 2026-06-07
+categories: [GameDev, Metroidvania, Godot]
+---
+
+## Introducción
+
+En esta serie de entradas iré vaciando lo que voy haciendo para desarrollar un videojuego en Godot que pertenece al género Metroidvania. Cabe mencionar que no todo es generado únicamente por mí, si no que iré tomando elementos de otros tutoriales, manuales, documentación y demás.
+
+Dejémoslo en que esta serie de entradas es una especie de repositorio y tutorial para el *yo* del futuro, que muy probablemente olvide todo si no lo documento.
+
+## Configuración del proyecto
+
+Partiré con un proyecto Godot que utilizará el motor *Forward+* y que llamaré **Taller-Metroidvania**. En el menú *Proyecto -> Configuración del proyecto*, en la pestaña *General*, nos dirigimos a la categoría *Visualización -> Ventana* y nos aseguramos de cambiar el parámetro *Modo* en la sección *Estirar* a `canvas_item`. En *Tamaño* de la visualización lo cambiamos a un ancho y alto de `480*270`, respectivamente. Podríamos pensar que es un tamaño pequeño. Y sí, lo es. Pero lo tendremos en cuenta enseguida.
+
+Antes de cerrar la ventana, veremos que en su parte superior derecha se encuentra un deslizador. Ahí activaré las *Configuraciones Avanzadas* para enseguida bajar un poco y cambiar las opciones *Sobreescribir Ancho* y *Sobreescribir Alto de Ventana* a `1440*810`, respectivamente. Esto último con la intención de ajustar el escalado de la ventana al momento de ejecutar el juego en pantallas de alta resolución.
+
+Seguimos en la configuración del proyecto, pero ahora bajaremos hacia la categoría *Renderizado -> Texturas* y en la sección *Textura del Canvas* cambiamos la opción *Filtro de Textura* a `Nearest`. Esto es así porque nuestro Metroidvania usará un estilo gráfico basado en arte píxel.
+
+Cambiaremos a la pestaña *Mapa de Entrada* y configuraremos los controles iniciales para nuestro juego. Primero, lo que debemos pulsar para que el personaje se mueva a la izquierda. Colocaremos el cursor de texto en la entrada *Añadir Nueva Acción* y escribimos `izquierda` para enseguida dar clic en el botón *Añadir* que se encuentra a la derecha. Veremos dicho texto aparece justamente dentro de la sección *Acción*. A su derecha está un botón *+*. Daremos clic allí y Godot nos pedirá que pulsemos la tecla del teclado que responderá a dicha acción, la cual mostrará tras pulsarlo pero no la guardará hasta que pulsemos en *Aceptar*. Cabe decir que es posible agregar tantos botones o teclas deseemos para dicha acción, incluso podemos presionar la dirección correspondiente en la cruceta o la palanca de un control si es que lo tenemos conectado. Tendremos que repetir esto para al menos las cuatro direcciones y los movimientos que tengamos pensados.
+
+Los movimientos que agregaré son el salto, el ataque, correr y habilidad. Aún no tengo del todo claro cuál será esa habilidad, pero conforme avancemos lo averiguaremos. Los controles que asignaré serán, respectivamente, botones `A`, `X`, `B` y `Y` en un mando genérico de *XBOX* y teclas `Z`, `X`, `C` y `S` en un teclado.
+
+Cerremos la ventana y creemos un Nodo Raíz del tipo *Escena 2D*. Recordemos los controles básicos en Godot para el ratón. Con el botón central podemos mover la vista y con la rueda alejamos o acercamos la misma.
+
+Guardamos la escena como `playground.tscn` y ya tenemos la configuración inicial de nuestro metroidvania lista. En una entrada posterior comenzaremos con el personaje principal.
