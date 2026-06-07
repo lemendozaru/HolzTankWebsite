@@ -1,0 +1,60 @@
+---
+title: "Ejecutar comandos por serial"
+date: 2026-06-01
+date-modified: 2026-06-01
+categories: [Embebidos, esp32, C++]
+---
+
+![Controlar un led con el monitor serial](media/practica01.png)
+
+## Introducción
+
+En anteriores ejemplos utilizamos la comunicación serial para imprimir en pantalla el estado de un elemento en particular, por medio del monitor serial. Por ejemplo, el estado de un botón o el valor de un potenciómetro. Ahora veremos cómo enviar comandos a través de la entrada del mismo monitor.
+
+## Circuito
+
+Armemos el típico circuito con un led y resistencia, pero conectemos el led al GPIO16.
+
+## Código
+
+Debemos tener en cuenta que le estaremos mandando comandos en tiempo real a la placa para que encienda y apague el led, por lo que debemos definir dichos comandos como variables en nuestro código. Pasemos a definir el código utilizado.
+
+```cpp
+/* Entradas y salidas */
+#define led1 16          // GPIO16
+
+/* Comandos */
+#define luz_on 'H'       // Luz encendida
+#define luz_off 'L'      // Luz apagada
+
+int cmd = 0; // Comando entrado por serial
+
+void setup() {
+  // Configuración de los puertos digitales
+  pinMode(led1, OUTPUT);
+  digitalWrite(led1, LOW);
+  // Configuracion del puerto serial
+  Serial.begin(115200);
+
+}
+
+void loop() {
+  // Responde solo si hay respuesta:
+  if (Serial.available() > 0) {
+    // Lee lo que esté presente:
+    cmd = Serial.read();
+
+    // Encendido o apagado de la luz segun el comando
+    if(cmd == luz_on) {
+      digitalWrite(led1, HIGH);
+      Serial.println("Encendida");
+    }
+    else if(cmd == luz_off) {
+      digitalWrite(led1, LOW);
+      Serial.println("Apagada");
+    }
+  }
+}
+```
+
+Con esto, cada vez que encendamos la placa, debemos abrir el monitor serial y escribir en su barra de entrada el comando "H" para encender el led y "L" para apagarlo.

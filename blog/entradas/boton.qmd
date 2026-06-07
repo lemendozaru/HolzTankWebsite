@@ -1,7 +1,7 @@
 ---
-title: "Lectura de valores de un potenciómetro"
+title: "Lectura del estado de un botón"
 date: 2026-05-07
-date-modified: 2026-05-07
+date-modified: 2026-05-18
 categories: [Embebidos, esp32, C++]
 ---
 

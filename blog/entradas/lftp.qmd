@@ -1,0 +1,70 @@
+---
+title: "Detalles de hacerle al webmaster"
+date: 2026-05-18
+date-modified: 2026-05-19
+categories: [Linux, Manjaro]
+---
+
+![Hey, yo no estoy a la altura](media/linuxMaster.jpg)
+
+## No todo sale bien
+
+Pues resulta que después de una actualización, `FileZilla` se negó rotundamente a conectarse al servidor. Desconozco si la actualización que rompió mi flujo fue de mi sistema, de FileZilla o del servidor pero el punto es que ya no pude actualizar el sitio.
+
+Después de algunas búsquedas (y estar peleando con la IA del proveedor de hosting) y la ayuda de otra IA (DeepSeek) parece que he ido resolviendo el asunto. Documento el proceso aquí, para no andarlo buscando de nuevo.
+
+Toca instalar `lftp`:
+
+```bash
+sudo pacman -S lftp
+```
+
+Luego me conecto al servidor usando este nuevo programa:
+
+```bash
+lftp -u USUARIO,CONTRASENA ftp://holztank.top:21
+```
+
+Entonces `zsh`, que es mi emulador de terminal me manda al diablo y me dice que no encuentra coincidencias. Vaya. Está identificando el `*` como una extensión. Toca entrecomillar el usuario y contraseña:
+
+```zsh
+lftp -u 'USUARIO,CONTRASENA' ftp://holztank.top:21
+```
+
+Y con eso devuelve el prompt `lftp usuario@holztank.top:~> `, lo que indica que todo va bien. El siguiente paso es ir introduciendo las siguientes líneas, una por una:
+
+```zsh
+set ftp:ssl-allow true
+set ftp:ssl-force true
+set ftp:ssl-protect-data true
+set ssl:verify-certificate false
+ls
+```
+
+Cabe mencionar que la última línea tarda demasiado, así que solo la usaré cuando realmente necesite saber qué hay dentro de la carpeta en cuestión.
+
+Lo ideal ahora es cerrar `lftp` y ejecutarlo dentro del directorio raíz de mi proyecto (lo tengo hecho en `Quarto`), para de esa manera repetir todo lo anterior (menos el `ls`) y ejecutar lo siguiente:
+
+```zsh
+open -u USUARIO,CONTRASENA ftp://holztank.top:21
+```
+
+El comando anterior permite abrir el puerto, básicamente. Para ya "subir" mis archivos al servidor, ejecuto
+
+```zsh
+mirror -R --delete --verbose --only-newer _site/ public_html/
+```
+
+Este comando borra archivos que no estén en la carpeta origen y copia solamente los que hayan sido modificados. Cabe decir que Quarto genera los sitios web en la carpeta `_site` y que mi servidor los debe alojar en la carpeta `public_html`. Es probable que se tarde también lo suyo.
+
+Había olvidado un punto: que para salir de `lftp` hay que ejecutar un simple `quit`.
+
+Y si todo ha salido bien, el sitio debe estar actualizado y por eso lo podrá estar viendo el *yo* del futuro o tú lo estarás leyendo.
+
+EDIT: Pues resulta que FileZilla sí funciona, pero como mi proveedor de hosting actualizó un no-sé-qué sobre asuntos de privacidad, pues el certificado SSL ya no coincidía. Cosas de la vida, supongo. Tenía que permitir al programa que pudiera esperar hasta 300 segundos para que el diálogo que me tenía que preguntar si aceptaba el certificado apareciera. Y pues eso, apareció, lo acepté y ya funciona la transferencia por FileZilla.
+
+EDIT 2: Ahora la transferencia es lentísima. Más de 30 segundos para volver a conectarse al servidor. Esto no era así hace un par de semanas.
+
+EDIT 3: Vuelvo a `lftp`, pero ahora con el uso de scripts que incluyan notificaciones de escritorio (en KDE Plasma) y quizá un arreglo a lo lento que se han vuelto las transferencias. Veremos qué tal.
+
+Repito, cosas de la vida.
