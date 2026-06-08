@@ -7,5 +7,5 @@ listing:
   fields: [title, date, description, image]
   categories: true
   include:
-    categories: Desarrollo de videojuegos           # ← Filtro clave
+    categories: GameDev           # ← Filtro clave
 ---

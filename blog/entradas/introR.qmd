@@ -1,0 +1,110 @@
+---
+title: "Vectores en R"
+date: 2026-06-07
+date-modified: 2026-06-07
+categories: [DataScience, R]
+---
+
+Podemos utilizar R como una calculadora bastante avanzada, utilizando los operadores básicos. Sin embargo, no nos quedaremos ahí. Pasemos a ver cómo se declaran las variables y trabajaremos con vectores.
+
+## Variables
+
+Se declaran de manera muy sencilla. Lo peculiar de R es que no se utiliza el símbolo `=`, si no que se asignan valores con la combinación `<-`. Por ejemplo:
+
+```{r}
+manzanas <- 5
+naranjas <- 4
+frutas <- manzanas + naranjas
+
+# Se imprime una variable si escribimos su nombre
+frutas
+```
+
+En el ejemplo anterior vimos que se pueden utilizar los operadores aritméticos en R de la manera usual. Entremos al trabajo con los vectores.
+
+## Vectores
+
+Se crean usando la función `c()` con los distintos elementos en su interior y podemos incluir valores numéricos, de texto y lógicos. Por ejemplo:
+
+```{r}
+numerico <- c(4, 1, 5)
+textual <- c("Uno", "Dos", "Tres")
+booleano <- c(TRUE, FALSE, TRUE)
+```
+
+Creemos un par de vectores numéricos que reflejarán nuestras ganancias en dos tipos de juegos: el póker y la ruleta:
+
+```{r}
+# Ganancias en el póker
+poker <- c(140, -50, 20, -120, 240)
+
+# Ganancias en la ruleta
+ruleta <- c(-24, -50, 100, -350, 10)
+```
+
+Pero como deseamos tener bien identificados los elementos de nuestros vectores, podemos asignarle nombres a sus "columnas":
+
+```{r}
+# Vector con los nombres de los días
+dias_semana <- c("Lunes", "Martes", "Miércoles", "Jueves", "Viernes")
+
+# Asignar días como nombres a ambos vectores
+names(poker) <- dias_semana
+names(ruleta) <- dias_semana
+
+# Imprimir ambos vectores
+poker
+ruleta
+```
+
+## Operaciones con vectores
+
+Si deseamos sumar cada elemento de un vector con su contraparte en el otro vector, podemos literalmente sumarlos:
+
+```{r}
+# Sumar los totales diarios de ambos vectores
+total_diario <- poker + ruleta
+total_diario
+```
+
+Y si lo que deseamos es mostrar la sumatoria numérica de cada uno de los vectores, podemos utilizar la función `sum()`:
+
+```{r}
+# Calcular la sumatoria por vector
+total_poker <- sum(poker)
+total_ruleta <- sum(ruleta)
+
+# Sumar ambos resultados
+total_semanal <- total_poker + total_ruleta
+
+# Imprimir un mensaje y el total
+print(paste("Total por semana: ", total_semanal))
+```
+
+## Seleccionar elementos de un vector
+
+Para seleccionar un elemento dentro de un vector, una matriz o un marco de datos, se utiliza el nombre del vector y el indicador del elemento entre corchetes. Por ejemplo, seleccionemos el cuarto elemento del vector `poker`:
+
+```{r}
+poker[3]
+```
+
+Si por otro lado, deseamos seleccionar varios elementos contiguos, basta con especificar el rango con dos puntos enmedio:
+
+```{r}
+poker[2:4]
+```
+
+También podemos seleccionar utilizando los nombres de las columnas:
+
+```{r}
+poker[c("Lunes", "Martes", "Miércoles")]
+```
+
+O por comparación. Por ejemplo, queremos solo seleccionar las ganancias (omitiendo, naturalmente, las pérdidas):
+
+```{r}
+poker > 0
+```
+
+En la siguiente entrada veremos cómo se usan las matrices.

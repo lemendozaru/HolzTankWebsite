@@ -18,6 +18,8 @@ website:
         text: Blog
       - href: blog/data/index.qmd
         text: DataScience
+      - href: blog/dev/index.qmd
+        text: Dev
       - href: blog/embebidos/index.qmd
         text: Embebidos
       - href: blog/gamedev/index.qmd
