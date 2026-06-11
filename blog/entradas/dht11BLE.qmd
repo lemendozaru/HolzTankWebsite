@@ -1,7 +1,7 @@
 ---
 title: "Leer la temperatura mediante BLE"
 date: 2026-06-08
-date-modified: 2026-06-08
+date-modified: 2026-06-10
 categories: [Embebidos, esp32, C++]
 ---
 
@@ -261,4 +261,4 @@ void loop() {
 }
 ```
 
-Toca probar con la aplicación `nRF Connect` y seguir las instrucciones mostradas en el monitor.
+Toca probar con la aplicación `nRF Connect` y seguir las instrucciones mostradas en el monitor serial.

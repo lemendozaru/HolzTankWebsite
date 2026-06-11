@@ -1,9 +1,11 @@
 ---
 title: "Vectores en R"
 date: 2026-06-07
-date-modified: 2026-06-07
+date-modified: 2026-06-10
 categories: [DataScience, R]
 ---
+
+![](media/RLogo.png)
 
 Podemos utilizar R como una calculadora bastante avanzada, utilizando los operadores básicos. Sin embargo, no nos quedaremos ahí. Pasemos a ver cómo se declaran las variables y trabajaremos con vectores.
 

@@ -1,0 +1,112 @@
+---
+title: "Matrices en R"
+date: 2026-06-10
+date-modified: 2026-06-10
+categories: [DataScience, R]
+---
+
+![](media/RLogo.png)
+
+Una matriz es un arreglo bidimensional de elementos del mismo tipo, dispuestos en un número fijo de filas y columnas. Pueden ser creadas con la función `matrix()`. Veamos un ejemplo:
+
+Construyamos una matriz con nueve elementos dispuestos en tres filas. R sabrá que debe rellenar por filas si se lo decimos con `byrow=T`.
+
+```{r}
+matrix(c(1:9), byrow = T, nrow = 3)
+```
+
+Bien, realicemos unos ejercicios con matrices. Les daremos nombres a sus columnas y filas, las modificaremos y haremos operaciones con ellas.
+
+## Creación y modificación básica
+
+Como primer ejercicio, vamos a crear una matriz a partir de unos cuantos vectores que contienen las cifras de taquilla de las primeras tres películas "principales" de la franquicia *Star Wars*. La primera cifra se corresponde con Estados Unidos y la segunda con el resto del mundo.
+
+```{r}
+# Primero creamos los vectores
+new_hope <- c(460.998, 314.4)
+empire_strikes <- c(290.475, 247.900)
+return_jedi <- c(309.306, 165.8)
+
+# Luego la matriz a partir de ellos
+taquilla <- matrix(c(new_hope, empire_strikes, return_jedi),
+    byrow = T, nrow = 3)
+
+# Mostramos la matriz
+taquilla
+```
+
+Ahora agreguemos los nombres de columnas y filas para identificar de mejor manera los elementos de la matriz.
+
+```{r}
+# Nombremos los elementos de la matriz
+# Columnas
+region <- c("US", "Non-US")
+
+# Filas
+nombres <- c("A New Hope", "The Empire Strikes Back", "Return of the Jedi")
+
+# Nombramos columnas
+colnames(taquilla) <- region
+
+# Nombramos filas
+rownames(taquilla) <- nombres
+
+# Imprimimos la matriz
+taquilla
+```
+
+## Agregando columnas
+
+Una función muy útil cuando se trabaja con matrices es la suma por fila. Veamos cómo se realiza:
+
+```{r}
+# Calculemos la taquilla por película
+total <- rowSums(taquilla)
+
+# Mostremos el resultado
+total
+```
+
+Con este nuevo vector podemos añadir más información a la matriz. Agreguémoslo como una nueva columna:
+
+```{r}
+taquilla_total <- cbind(taquilla, total)
+
+# Imprimimos la nueva matriz
+taquilla_total
+```
+
+## Agregando filas
+
+Ahora probaremos cómo es posible unir dos matrices similares. Crearemos otra con los datos de las precuelas y la añadiremos como tres filas nuevas para crear una matriz más amplia (pero aún con dos columnas de datos).
+
+```{r}
+# Creamos la matriz con las precuelas
+taquilla_precuelas <- matrix(c(474.5, 552.5, 310.7, 338.7, 380.3, 468.5),
+                             byrow = TRUE, nrow = 3)
+
+# Creamos el vector con los nombres
+nombres_precuelas <- c("The Phantom Menace", "Attack of the Clones",
+                       "Revenge of the Sith")
+
+# Nombramos las columnas
+colnames(taquilla_precuelas) <- region
+
+# Nombramos las filas
+rownames(taquilla_precuelas) <- nombres_precuelas
+
+# Unimos ambas matrices
+taquilla_todas <- rbind(taquilla, taquilla_precuelas)
+
+# Imprimimos la matriz final
+taquilla_todas
+```
+
+
+
+
+
+
+
+
+
