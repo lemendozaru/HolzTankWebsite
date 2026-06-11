@@ -1,7 +1,25 @@
-/*
- Usar una esp32 como emisor BLE
-*/
+---
+title: "Transmitir por bluetooth"
+date: 2026-06-08
+date-modified: 2026-06-08
+categories: [Embebidos, esp32, C++]
+---
 
+![Transmitiendo por BLE](media/BLE.png)
+
+## Introducción
+
+En esta práctica haremos que la esp32 permanezca emitiendo paquetes de datos por medio de Bluetooth Low Energy (BLE) para que un dispositivo móvil los pueda leer. Es como un aviso de proximidad.
+
+## Circuito
+
+El led con resistencia de toda la vida.
+
+## Código
+
+Cargaremos el siguiente código a la esp32. Debemos editarlo para poner nuestro propio *UUID* (podemos generarlo [aquí](https://www.uuidgenerator.net/)); también debemos cambiar el nombre del dispositivo.
+
+```cpp
 #include <BLEDevice.h>
 #include <BLEUtils.h>
 #include <BLEServer.h>
@@ -18,7 +36,7 @@ void setup() {
     pinMode(led, OUTPUT);
     digitalWrite(led, HIGH);
 
-    // Renombrar dispositivo BLE (cambiarlo por equipo)
+    // RENOMBRAR DISPOSITIVO BLE (cambiarlo por equipo)
     BLEDevice::init("ESP32_BLE");
 
     // Construir payload iBeacon (estructura para Apple)
@@ -90,3 +108,8 @@ void loop() {
     }
     delay(100);
 }
+```
+
+## "Leer" con un teléfono
+
+El último paso es acceder a lo que la esp32 está mostrando en su emisión BLE. Para ello debemos instalar alguna aplicación que permita escanear dispositivos BLE. Para android podemos usar *nRF Connect*. Tenemos que escanear dispositivos en dicha aplicación y acceder al nuestro. Debemos también verificar que los datos que muestresean exactamente los correctos.

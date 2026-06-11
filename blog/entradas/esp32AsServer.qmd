@@ -37,8 +37,8 @@ Ahora abrimos Arduino IDE y aunque podemos usar el mismo archivo servidorLED.ino
 
 // === CONFIGURACION DE LA RED EXISTENTE ===
 // Cambiar estos valores por los de la red WiFi domestica
-const char *ssid = "ranchitomiado";      // Ejemplo: "MiFibra-2F4G"
-const char *password = "Xochiquetzalli9424";   // Ejemplo: "ClaveWifi123"
+const char *ssid = "ssidGenerico";      // Ejemplo: "MiFibra-2F4G"
+const char *password = "passGenerica";   // Ejemplo: "ClaveWifi123"
 
 // Puerto del servidor web (80 es el estandar HTTP)
 WiFiServer server(80);
