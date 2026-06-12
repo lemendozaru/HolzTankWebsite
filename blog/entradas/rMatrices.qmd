@@ -1,7 +1,7 @@
 ---
 title: "Matrices en R"
 date: 2026-06-10
-date-modified: 2026-06-10
+date-modified: 2026-06-11
 categories: [DataScience, R]
 ---
 
@@ -89,9 +89,6 @@ taquilla_precuelas <- matrix(c(474.5, 552.5, 310.7, 338.7, 380.3, 468.5),
 nombres_precuelas <- c("The Phantom Menace", "Attack of the Clones",
                        "Revenge of the Sith")
 
-# Nombramos las columnas
-colnames(taquilla_precuelas) <- region
-
 # Nombramos las filas
 rownames(taquilla_precuelas) <- nombres_precuelas
 
@@ -102,7 +99,82 @@ taquilla_todas <- rbind(taquilla, taquilla_precuelas)
 taquilla_todas
 ```
 
+Y con esto realizado, podemos abordar la suma por columnas. Tomemos la matriz completa y calculemos la totalidad de la taquilla tanto dentro como fuera de los Estados Unidos:
 
+```{r}
+# Calculemos el total de taquilla por región
+taquilla_region <- colSums(taquilla_todas)
+
+# Mostremos el resultado
+taquilla_region
+```
+
+## Selección de elementos
+
+Al igual que con los vectores, podemos seleccionar elementos en una matriz mediante corchetes. También es posible seleccionar rangos. Veamos unos ejemplos:
+
+```{r}
+# Primero recordemos los elementos de la matriz
+taquilla_todas
+
+# Mostremos solo la taquilla fuera de los EU
+taquilla_todas[,2]
+
+# Calculemos solo la media de esa taquilla
+mean(taquilla_todas[,2])
+
+# Seleccionemos solo la taquilla de las primeras dos
+taquilla_todas[1:2,2]
+
+# Calculemos su media
+mean(taquilla_todas[1:2,2])
+```
+
+## Aritmética con matrices
+
+También podemos realizar operaciones con las matrices. Pongamos de ejemplo que deseamos calcular cuántas personas fueron a ver las películas, suponiendo que las entradas costaran cinco dólares. Tomemos la matriz final y dividámosla entre 5:
+
+```{r}
+# Para calcular la asistencia
+# dividamos entre 5
+asistentes <- taquilla_todas / 5
+
+# Mostremos el resultado
+asistentes
+```
+
+Pero resulta que nuestra suposición no es del todo correcta, ya que nos proveen la tabla con los precios reales de los boletos (que también son supuestos, pero un poco más "realistas"). Los consideramos para volver a realizar el cálculo:
+
+```{r}
+# Creamos la matriz con los precios
+precios <- matrix(c(5,5,6,6,7,7,4,4,4.5,4.5,4.9,4.9),
+                  byrow = TRUE, nrow = 6)
+
+# Dividamos la primera entre la segunda
+asistentes_reales <- taquilla_todas / precios
+
+# Mostremos los asistentes reales
+asistentes_reales
+```
+
+## Ejercicio final
+
+¿Por qué no calcular cuánto recaudaron las películas a partir de los datos que tenemos?
+
+Tomemos la matriz con toda la taquilla, calculemos el total por región, lo agregamos y al final sacamos el total por película, para también agregarlo.
+
+```{r}
+# Calculemos y agreguemos la suma de columnas
+taquilla_todas <- rbind(taquilla_todas, colSums(taquilla_todas))
+
+# Ahora calculemos la suma de filas
+taquilla_todas <- cbind(taquilla_todas, rowSums(taquilla_todas))
+
+# Mostremos
+taquilla_todas
+```
+
+Listo, sabemos que la recaudación total fue de 4314.079 dólares.
 
 
 
