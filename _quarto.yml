@@ -60,7 +60,7 @@ format:
     theme:
         light: cosmo
         dark: [cosmo, theme-dark.scss]
-    respect-user-color-scheme: true
+    respect-user-color-scheme: false
     code-fold: true
     css: styles.css
     highlight-style: github

@@ -1,9 +1,11 @@
 ---
 title: "Configurando Godot para un Metroidvania genérico"
 date: 2026-06-07
-date-modified: 2026-06-07
+date-modified: 2026-06-13
 categories: [GameDev, Metroidvania, Godot]
 ---
+
+![](media/godotLogo.png)
 
 ## Introducción
 
@@ -25,4 +27,4 @@ Los movimientos que agregaré son el salto, el ataque, correr y habilidad. Aún 
 
 Cerremos la ventana y creemos un Nodo Raíz del tipo *Escena 2D*. Recordemos los controles básicos en Godot para el ratón. Con el botón central podemos mover la vista y con la rueda alejamos o acercamos la misma.
 
-Guardamos la escena como `playground.tscn` y ya tenemos la configuración inicial de nuestro metroidvania lista. En una entrada posterior comenzaremos con el personaje principal.
+Guardamos la escena como `playground.tscn` y ya tenemos la configuración inicial de nuestro *metroidvania* lista. En una entrada posterior comenzaremos con el personaje principal, mecánicas básicas y sus configuraciones iniciales.

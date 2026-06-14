@@ -67,7 +67,7 @@ Primero debemos asegurarnos de tener instalada la librería `pyserial`.
 pip install pyserial
 ```
 
-Creamos un archivo serialLed.py y lo guardamos en cualquier carpeta que nos parezca adecuada. Enseguida copiamos y pegamos el código siguiente. Es importante que editemos el puerto para que coincida con el que está usando nuestra placa. Otra alternativa es descargar este archivo: [Aplicación para Linux](scripts/serialLed.py)
+Creamos un archivo serialLed.py y lo guardamos en cualquier carpeta que nos parezca adecuada. Enseguida copiamos y pegamos el código siguiente. Es importante que editemos el puerto para que coincida con el que está usando nuestra placa. Otra alternativa es descargar este archivo: [Aplicación para Linux](scripts/python/serialLed.py)
 
 ```python
 import serial

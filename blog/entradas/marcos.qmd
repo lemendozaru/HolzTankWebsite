@@ -1,0 +1,132 @@
+---
+title: "Marcos de Datos en R"
+date: 2026-06-13
+date-modified: 2026-06-13
+categories: [DataScience, R]
+draft: false
+---
+
+![](media/RLogo.png)
+
+Un marco de datos (o *dataframe*) en R es un arreglo de elementos que nos puede recordar a las matrices. ya que también está compuesto por filas y columnas. Sin embargo, hay diferencias con aquellas, por ejemplo, las columnas se corresponden con las variables del conjunto de datos y las filas con las observaciones de este. Otra diferencia es que un marco de datos puede contener tipos de datos diferentes: numéricos, textuales, lógicos, factores y demás.
+
+## Explorando un marco de datos
+
+Vamos a cargar en R un marco de datos que ya viene con su instalación: `mtcars`. Basta con escribir su nombre:
+
+```{r}
+mtcars
+```
+
+Como podemos notar, son demasiados datos. Podemos mostrar unos cuantos de ellos si utilizamos la sentencia `head()` para los primeros o `tail()` para los últimos. Mostremos los primeros cinco y los últimos cuatro:
+
+```{r}
+# Mostremos los primeros cinco elementos
+head(mtcars, 5)
+
+# Mostremos los últimos cuatro
+tail(mtcars)
+```
+
+Así tenemos un mejor control sobre lo que mostramos. Si por otro lado lo que queremos ver es la estructura del marco de datos, podemos usar `str()`:
+
+```{r}
+str(mtcars)
+```
+
+Esto nos mostrará el número de observaciones y de variables, además de enlistar estas últimas junto con su tipo de dato y sus primeras observaciones.
+
+## Creando un marco de datos
+
+Vamos a crear nuestro propio marco de datos a partir de unos vectores. Tomaremos de ejemplo unos que contienen información sobre los planetas de nuestro sistema solar: tipo de planeta, el diámetro y la rotación en proporción con el diámetro de la Tierra, y si tiene anillos o no.
+
+```{r}
+# Creamos los vectores
+nombre <-
+  c("Mercurio", "Venus", "Tierra", "Marte", "Júpiter", "Saturno",
+    "Urano", "Neptuno")
+tipo <-
+  c("Terrestre", "Terrestre", "Terrestre", "Terrestre", "Gaseoso",
+    "Gaseoso", "Gaseoso", "Gaseoso")
+diametro <- c(0.382, 0.949, 1, 0.532, 11.209, 9.449, 4.007, 3.883)
+rotacion <- c(58.64, -243.02, 1, 1.03, 0.41, 0.43, -0.72, 0.67)
+anillos <- c(FALSE, FALSE, FALSE, FALSE, TRUE, TRUE, TRUE, TRUE)
+```
+
+Y con estos elementos creados podemos ya armar el marco de datos:
+
+```{r}
+# Creamos el marco de datos
+planetas <- data.frame(nombre, tipo, diametro, rotacion, anillos)
+
+# Mostramos el marco
+planetas
+```
+
+Veamos su estructura:
+
+```{r}
+str(planetas)
+```
+
+Contamos con variables textuales, numéricas y lógicas.
+
+## Seleccionando elementos
+
+Se realiza con la misma lógica que las matrices, es decir, usando corchetes y dos índices, el primero para las filas y el segundo para las columnas. A modo de ejemplo, seleccionemos y mostremos el diámetro de Mercurio (se encuentra en la primera fila y tercera columna):
+
+```{r}
+planetas[1,3]
+```
+
+Ahora mostremos toda la información de Marte (cuarta fila):
+
+```{r}
+planetas[4,]
+```
+
+También es posible seleccionar los elementos con base en el nombre de la columna (o más bien, el de la variable). Por ejemplo, vamos a buscar e imprimir solo el diámetro de los primeros cinco planetas:
+
+```{r}
+planetas[1:5, "diametro"]
+```
+
+Por otro lado, si lo que queremos es mostrar toda una columna, simplemente escribimos el nombre del marco seguido por el signo `$` y enseguida el nombre de dicha columna:
+
+```{r}
+planetas$diametro
+```
+
+Por último, si tenemos variables lógicas, podemos seleccionar las observaciones de las cuales el valor sea verdadero. Tomemos como ejemplo si el planeta tiene anillos o no. Si escribimos el nombre de la variable como criterio de selección, solo mostrará aquellas filas en las que dicha variable tenga el valor `TRUE`:
+
+```{r}
+planetas[planetas$anillos,]
+```
+
+## Subconjuntos
+
+Una función muy útil es `subset()`, la cual nos permite crear subconjuntos dentro de los marcos de datos que cumplan cierto criterio. Pudimos haberla usado para seleccionar solo planetas con anillos:
+
+```{r}
+# Subconjunto de planetas con anillos
+subset(planetas, anillos)
+```
+
+Pero también podemos agregar criterios a nuestro gusto:
+
+```{r}
+# Mostremos planetas con diámetro menor a la Tierra
+subset(planetas, diametro < 1)
+```
+
+## Ordenando marcos
+
+Es posible ordenar los datos de un marco con base en el valor de alguna de sus variables. Para ello echamos mano de la función `order()`, la cual nos da la posición de cada elemento enlistado y que si la aplicamos a un marco lo ordena, siempre y cuando la usemos como sigue:
+
+```{r}
+# Ordenamos filas de acuerdo al diámetro
+planetas[order(planetas$diametro),]
+```
+
+Perfecto, hemos abordado lo básico de los marcos de datos en R. Lo siguiente son las listas.
+

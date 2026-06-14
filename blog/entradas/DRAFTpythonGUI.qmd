@@ -3,7 +3,10 @@ title: "GUIs con Python"
 date: 2026-06-07
 date-modified: 2026-06-07
 categories: [Dev, Python]
+draft: true
 ---
+
+![](media/pythonLogo.png)
 
 ## Introducción
 

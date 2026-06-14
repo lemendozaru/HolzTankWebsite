@@ -1,0 +1,7 @@
+---
+title: "Listas en R"
+date: 2026-06-13
+date-modified: 2026-06-13
+categories: [DataScience, R]
+draft: true
+---

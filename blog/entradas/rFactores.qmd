@@ -1,0 +1,97 @@
+---
+title: "Factores en R"
+date: 2026-06-11
+date-modified: 2026-06-13
+categories: [DataScience, R]
+draft: false
+---
+
+![](media/RLogo.png)
+
+Los factores son un tipo de dato estadístico usado para almacenar variables categóricas. Recordemos que estas son variables cualitativas restringidas a un determinado número de categorías.
+
+Es necesario decirle a R que está trabajando con variables de este tipo, para que el tratamiento dado a los datos sea consistente.
+
+Un ejemplo de este tipo de variable es el sexo, el cual está limitado a pocas clases, dependiendo de las normas culturales, variaciones cromosómicas o demás consideraciones de importancia.
+
+## Creando factores
+
+Un primer paso es crear el vector que contendrá los datos que vamos a tratar como factores. Por ejemplo, el sexo de cinco individuos:
+
+```{r}
+# Creamos el vector con el sexo
+sexo <- c("Male", "Female", "Female", "Male", "Male")
+```
+
+Como podemos notar, aquí hay dos niveles de factor: "Male" y "Female". Volvemos este vector en factor con la siguiente sentencia:
+
+```{r}
+# Codificamos el vector como factor
+sexo_factor <- factor(sexo)
+
+# Mostramos el factor
+sexo_factor
+```
+
+## Factores ordenados
+
+Con esto podemos observar que R nos muestra los niveles de factor debajo de los valores, reconociendo que existen dos de ellos.
+
+Hay que considerar que dentro de las variables categóricas existen dos tipos: las nominales (como la del ejemplo anterior) y las ordinales (las cuales tienen un "orden natural"). Como ejemplo de variable ordinal tenemos una escala de temperaturas que consiste de los valores "Baja", "Media" y "Alta". Queda claro que la "Media" está por encima de la primera, pero debajo de la última.
+
+Con lo anterior en mente, vamos a crear un factor que contenga la escala de las temperaturas anteriores:
+
+```{r}
+# Vector con las temperaturas
+temperaturas <- c("Alta", "Baja", "Alta", "Baja")
+
+# Factor ordenado de las temperaturas
+temperaturas_factor <-
+  factor(temperaturas, ordered = TRUE, levels = c("Baja", "Media", "Alta"))
+
+# Mostramos el factor
+temperaturas_factor
+```
+
+Echémosle un vistazo al código. La función `factor()` puede contener más parámetros. En este caso, para indicarle a R que había orden, tenemos que hacerlo literalmente con el parámetro `ordered = TRUE`, mientras que dicho orden lo especificamos de manera explícita con `levels = c()`. Dicho orden queda confirmado tras observar la salida.
+
+## Reasignando los niveles
+
+En ocasiones vamos a desear cambiar el nombre de los niveles por otros más descriptivos. Por ejemplo, en el caso del sexo, quizá nos resulte más conveniente mostrarlos en español. Esto es posible, pero debemos tener en cuenta que R asigna los niveles por orden alfabético, así que lo mejor es adelantarnos y escribir la reasignación con dicho orden en mente. Veamos cómo hacerlo:
+
+```{r}
+# Reasignamos niveles
+levels(sexo_factor) <- c("Femenino", "Masculino")
+
+# Mostramos el nuevo vector
+sexo_factor
+```
+
+## Conociendo mejor los factores
+
+Una función muy útil en R es `summary()`, la cual nos da un resumen de lo que coloquemos en ella. Veamos su salida cuando la usamos con un factor:
+
+```{r}
+# Resumen del factor
+summary(sexo_factor)
+```
+
+Es simple el resultado: da la frecuencia de cada nivel.
+
+## Comparando elementos
+
+No tiene sentido comparar los elementos de un factor categórico nominal. Si hacemos la prueba con `sexo_factor` R nos avisa precisamente eso.
+
+```{r}
+# Comparando sexos
+sexo_factor[1] < sexo_factor[3]
+```
+
+La cosa cambia cuando queremos comparar factores con niveles ordenados:
+
+```{r}
+# Comparando temperaturas
+temperaturas_factor[1] < temperaturas_factor[4]
+```
+
+Bien, hemos terminado de momento con los factores. En posteriores entradas veremos más elementos en R.

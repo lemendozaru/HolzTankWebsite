@@ -525,6 +525,6 @@ if __name__ == "__main__":
 
 ```
 
-Igual el código fuente se puede descargar de [aquí](scripts/serialLedGUI.py).
+Igual el código fuente se puede descargar de [aquí](scripts/python/serialLedGUI.py).
 
 Debemos asegurarnos de conectar primero el puerto. Si esto se logra, deberíamos poder encender y apagar el led por medio de los botones.
