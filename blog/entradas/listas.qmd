@@ -1,0 +1,62 @@
+---
+title: "Listas en R"
+date: 2026-06-13
+date-modified: 2026-06-14
+categories: [DataScience, R]
+draft: false
+---
+
+![](media/RLogo.png)
+
+Una lista es un tipo de dato que puede almacenar objetos como los vectores, matrices, marcos de datos e incluso otras listas. Es una especie de súpertipo de dato.
+
+## Creando una lista
+
+Vamos a crear primero los elementos que va a contener nuestra lista.
+
+```{r}
+# Creamos un vector
+mi_vector <- c(1:10)
+
+# Creamos una matriz
+matriz <- matrix(c(1:9), ncol = 3)
+
+# Extraemos algunos datos de mtcars
+# para usarlos como un marco
+marco <- mtcars[1:10,]
+
+# Creamos la lista
+mi_lista <- list(mi_vector, matriz, marco)
+
+# Mostremos la lista
+mi_lista
+```
+
+Siempre es buena idea nombrar los elementos que están dentro de una lista, así que pasemos a eso:
+
+```{r}
+# Demos nombre a los elementos
+names(mi_lista) <- c("Vector", "Matriz", "Marco")
+
+# Mostremos la lista
+mi_lista
+```
+
+## Seleccionando elementos
+
+Para extraer elementos de una lista ahora debemos usar corchetes dobles. Sin embargo, hay bastante flexibilidad al momento de referenciar el elemento. Por ejemplo, seleccionemos el vector:
+
+```{r}
+# Seleccionemos el vector
+mi_lista[["Vector"]]
+
+# Lo mismo pero diferente
+mi_lista[[1]]
+
+# De nuevo lo mismo pero diferente
+mi_lista$Vector
+```
+
+Listo, ya tenemos lo relacionado con los vectores, matrices, marcos de datos y las listas. Podemos decir que lo básico de R ya está cubierto.
+
+
