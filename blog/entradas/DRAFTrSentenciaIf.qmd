@@ -1,0 +1,9 @@
+---
+title: "La sentencia `if` en R"
+date: 2026-06-14
+date-modified: 2026-06-14
+categories: [DataScience, R]
+draft: true
+---
+
+![](media/RLogo.png)

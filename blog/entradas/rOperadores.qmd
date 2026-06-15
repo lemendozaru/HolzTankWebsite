@@ -1,0 +1,108 @@
+---
+title: "Operadores relacionales y lógicos en R"
+date: 2026-06-14
+date-modified: 2026-06-14
+categories: [DataScience, R]
+draft: false
+---
+
+![](media/RLogo.png)
+
+Las sentencias condicionales son fundamentales para comenzar a controlar el flujo de nuestros programas. Por ello, vamos a abordar en primer lugar los operadores que dan sentido a las condiciones.
+
+## Operadores relacionales
+
+Recordemos los operadores necesarios para nuestro flujo de trabajo: la igualdad, la no-igualdad y las desigualdades. En R podemos definirlas como:
+
+- Igualdad `==`
+- No-igualdad `!=`
+- Menor que `<`
+- Menor o igual que `<=`
+- Mayor que `>`
+- Mayor o igual que `>=`
+
+Podemos aplicar estos operadores a vectores para encontrar valores que satisfagan algún criterio. Por ejemplo, dado un vector, podemos buscar cuáles de sus elementos son menores a `10`:
+
+```{r}
+# Creamos el vector
+vector1 <- c(16, 9, 13, 5, 2, 17, 14)
+
+# Buscamos qué elementos superan 10
+vector1 > 10
+```
+
+También podemos comparar dos vectores entre sí:
+
+```{r}
+# Creamos otro vector
+vector2 <- c(17, 7, 5, 16, 8, 13, 14)
+
+# Y los comparamos
+vector1 >= vector2
+```
+
+Es la misma dinámica si trabajamos con matrices:
+
+```{r}
+# Creamos la matriz
+matriz <- matrix(c(vector1, vector2), nrow = 2)
+
+# Comparamos la matriz con un valor
+matriz == 13
+```
+
+Pasemos ahora a otro conjunto de operadores que nos ayudarán con el flujo de trabajo.
+
+## Operadores Lógicos
+
+- AND `&`
+- OR `|`
+- NOT `!`
+
+Partamos de los vectores que ya hemos creado para abordar estos operadores. Vamos a extraer el último elemento del primer vector y lo compararemos.
+
+```{r}
+# Recordemos el primer vector
+vector1
+
+# Tomemos su último elemento
+ultimo <- tail(vector1, 1)
+
+# Comparemos de manera simultánea
+# ¿Este número es menor a 5 o mayor a 10?
+ultimo > 5 | ultimo < 10
+
+# ¿Se encuentra entre 15 y 20 (incluso)?
+ultimo > 15 & ultimo <= 20
+```
+
+Estos operadores funcionan exactamente igual que los anteriores en vectores y matrices.
+
+Por último, la negación en R es bastante simple en su concepto, pero sí puede llegar a complicar algunas cosas. Por ejemplo, las siguientes expresiones, ¿devolverá un `TRUE` o un `FALSE`?
+
+```r
+x <- 5
+y <- 7
+
+!(!(x < 4) & !!!(y > 12))
+```
+
+## Operadores dobles
+
+Es posible comparar dos vectores elemento por elemento. Pero, ¿qué se hace si se desea comparar ambos vectores completos? Pues se usan operadores dobles. Veamos unos ejemplos, tanto con AND como con OR:
+
+```{r}
+# Comparemos dos vectores, elemento por elemento
+c(TRUE, TRUE, FALSE) & c(TRUE, FALSE, FALSE)
+
+# Ahora comparemos dos vectores completos
+c(TRUE, TRUE, TRUE) && c(TRUE, TRUE, TRUE)
+
+# Ahora probemos con un OR
+c(TRUE, TRUE, FALSE) | c(TRUE, FALSE, FALSE)
+
+# Terminemos con dos OR
+c(TRUE, TRUE, FALSE) || c(TRUE, FALSE, FALSE)
+```
+
+Listo, podemos abordar ya las sentencias condicionales y de flujo.
