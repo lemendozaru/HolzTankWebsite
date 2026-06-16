@@ -1,5 +1,5 @@
 ---
-title: "La sentencia `if` en R"
+title: "Ciclos `while` en R"
 date: 2026-06-14
 date-modified: 2026-06-14
 categories: [DataScience, R]

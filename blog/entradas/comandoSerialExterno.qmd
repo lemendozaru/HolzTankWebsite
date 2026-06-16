@@ -1,7 +1,7 @@
 ---
 title: "Controlar un led con la terminal de comandos"
-date: 2026-06-01
-date-modified: 2026-06-01
+date: 2026-06-02
+date-modified: 2026-06-02
 categories: [Embebidos, esp32, C++, Python]
 ---
 

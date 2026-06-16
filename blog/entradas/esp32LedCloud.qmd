@@ -1,0 +1,72 @@
+---
+title: "Conectándose a Arduino Cloud"
+date: 2026-06-15
+date-modified: 2026-06-15
+draft: false
+categories: [Embebidos, esp32, C++, Arduino Cloud]
+---
+
+![](media/cloudLogo.svg)
+
+Una utilidad práctica de un sistema conectado a internet es poder controlarlo de manera remota, en todo el sentido de la palabra. Existen varias plataformas que nos permiten utilizarlas como el enlace entre el dispositivo y el usuario, este último por medio de su navegador web, pero esta ocasión elegiremos Arduino Cloud. La idea es encender y apagar un led mientras recuperamos las medidas de temperatura y humedad de un sensor dht11.
+
+## Configurando el dispositivo
+
+Debemos dirigirnos al sitio de [Arduino](https://www.arduino.cc/) y buscar el enlace que pone *Cloud* en la parte superior derecha del sitio. Nos pedirá que creemos una cuenta (o nos identifiquemos si ya contamos con una) y tras hacerlo nos mandará al sitio que nos interesa, [Arduino Cloud](https://app.arduino.cc/).
+
+Dentro del sitio veremos varios elementos, aunque de momento nos importa el panel lateral izquierdo. Ahí veremos un listado de pestañas que resultarán de utilidad. Vamos a enfocarnos primero en la categoría *IoT Builder* y luego entramos en su sección *Devices*. En la ventana principal aparecerá el botón *+ Add Device*. Lo presionamos y en la ventana flotante que aparece seleccionamos *Automatic Setup -> Compatible device*. Aparecerá otra ventana flotante en la que ahora especificamos nuestra placa esp32 entre las tres opciones y en el desplegable elegimos el modelo utilizado (normalmente *DOIT ESP32 DEVKIT V1*). Damos clic en *Continuar*.
+
+El siguiente paso es ponerle nombre al dispositivo, aunque el sugerido por Arduino Cloud a veces resulta hilarante, pero correcto. En mi caso le puse `Prueba`. Damos clic en el "check" y debemos PONER ATENCIÓN en el siguiente paso: se nos da un *Device ID* y una *Secret Key* e incluso la opción de descargar un pdf con dichos datos. Esta información no puede recuperarse, así que debemos guardarla muy bien. Arduino Cloud nos pide que verifiquemos que hemos guardado ambos datos dando clic en el "check" y luego en *Continuar*.
+
+Esto nos llevará a otra pantalla con un tablero y un panel izquierdo diferente. Veremos que no sucede gran cosa, pero es porque nuestra placa no está conectada aún. Ubiquemos la pequeña sección llamada *Network* que contiene el botón *CHANGE NETWORK*. Damos clic y aparece una ventana que indica que es necesaria una "Cosa" (*Thing*). Como no tenemos una, damos clic en *Create new*.
+
+## Configurando la cosa
+
+Quedaremos en la ventana de Dispositivos. Probablemente se quede cargando y no pase de ahí, basta con recargar la página después de un tiempo. Debería aparecer nuestro dispositivo ahí con un estatus offline, es lo normal. Lo siguiente por hacer es cambiar a la sección *Things* y cambiarle el nombre a la que aparece por defecto dando clic en el botón de los tres puntos que aparece a mano derecha tras pasar el cursor en la Cosa. Yo le puse `CosaPrueba`. Lo importante es que en la columna *Device* debe estar el nombre de nuestro dispositivo. Damos clic en el nombre de nuestra cosa y cambiamos de ventana a la de las variables.
+
+## Creando variables
+
+En dicha ventana, damos clic al botón *+ Variable* y elegimos el tipo. Como primero encenderemos un led, necesitamos una variable booleana. Le pondremos de nombre `led` para seguir con las buenas costumbres y dejamos "Read & Write" y "On change" como están y damos clic en *Create*.
+
+Aprovechemos y agreguemos otras dos variables pero ahora del tipo "Floating point number". Cambiamos el nombre a `temperature` y `humidity`, respectivamente. En ambas cambiamos "Read & Write" a "Read Only". Clicamos en *Create*. Ahora damos clic en la pestaña *Sketch* y cambiamos una vez más de ventana.
+
+## Cloud Agent
+
+Al entrar en la pestaña *Sketch* aparecerá un aviso flotante en la parte inferior de la pantalla, pidiendo que se instale el Cloud Agent. Damos clic en *Learn more* y nos llevará a un sitio con las instrucciones (lo cual se limita a un enlace que pone "Install the Arduino Cloud Agent"). Después nos llevará a otro sitio en el que ahora sí deja descargar el instalador. Debemos seguir las instrucciones correspondientes a nuestro sistema operativo.
+
+Después de terminar con el proceso de instalación, debe aparecer el icono de Arduino en la bandeja de nuestro SO (no debe estar sombreado). Luego Arduino podría solicitar permiso de acceso en el navegador, hay que otorgarlo. Con esto último, ya debería aparecer conectada la placa.
+
+## Configurando la red
+
+Volvemos al panel izquierdo principal (dando clic en el botón correspondiente) y regresamos a la sección *Devices*. De nuevo damos clic en *Change network* e introducimos nuestros datos (nombre de red, su contraseña y la clave secreta del dispositivo, la cual se encuentra en el pdf que se nos dió a descargar hace rato). Clicamos en *Go to sketch* y ya estamos en condiciones de escribir nuestro código.
+
+## El código del led
+
+Estando en el sketch, agregamos esta línea al `setup()` justo debajo del `delay(1500)`:
+
+```cpp
+pinMode(16, OUTPUT);
+```
+
+Asumiendo, claro está, que el led está conectado al pin 16.
+
+Luego, en la función `onLedChange()` agregamos:
+
+```cpp
+  digitalWrite(16, led ? HIGH : LOW);
+  Serial.println(led ? "Encendido" : "Apagado");
+```
+
+## El tablero del led
+
+Lo que toca es dirigirnos a la pestaña *Dashboards* del panel izquierdo, creamos uno nuevo, le ponemos un nombre adecuado, presionamos el botón *Edit* y luego en *Add* y le agregamos un widget del tipo *Switch* y lo vinculamos a la variable `led` mediante el botón *Link variable*. Terminamos clicando en *Done* y ya habremos terminado esta parte.
+
+## Probando el programa
+
+Subimos el sketch a la placa mediante la sección *Cloud Editor -> Sketches* y presionamos en el único que tenemos (en teoría). Todo debería estar conectado aún, así que damos clic en el clásico botón de la flecha apuntando a la derecha ("Upload") y esperamos que el código se verifique y se cargue en la placa.
+
+Cuando termine, nos dirigimos al tablero (Dashboards en el panel izquierdo), seleccionamos el creado y manipulamos el interruptor. El led debería estar sincronizado con este.
+
+Agreguemos el componente remoto. En nuestro teléfono instalamos la aplicación "Arduino IoT Cloud Remote" y nos identificamos en ella con la misma cuenta que en Arduino Cloud. Nos debe mostrar nuestro único tablero, al cual vamos a entrar y así manipular el led desde nuestro dispositivo móvil.
+
+

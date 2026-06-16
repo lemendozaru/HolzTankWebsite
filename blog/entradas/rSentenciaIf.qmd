@@ -1,0 +1,55 @@
+---
+title: "La sentencia `if` en R"
+date: 2026-06-15
+date-modified: 2026-06-15
+categories: [DataScience, R]
+draft: false
+---
+
+![](media/RLogo.png)
+
+La sentencia `if` es una condición que de cumplirse, lleva al programa por un camino determinado. En caso de que no se cumpla, puede llevar a otro o terminar con el flujo. Toca explorar cómo se utiliza en R.
+
+Para saber cuál es la estructura de la sentencia, veamos el siguiente ejemplo:
+
+```{r}
+# Declaramos una variable
+x <- -3
+
+# Armamos la condicional
+if (x < 0) {
+  print("x es negativa")
+}
+```
+
+Aquí vemos que la condición se cumple, por lo cual la acción programada se ejecuta. En caso contrario, el programa terminará en el propio `if`. Si deseamos especificar qué pasará si no se cumple la condición, podemos agregar la sentencia `else`:
+
+```{r}
+# Declaramos la variable
+x <- 5
+
+# Creamos la condicional
+if (x < 0) {
+  print("x es negativa")
+} else {
+  print("x es positiva o cero")
+}
+```
+
+Y si necesitamos más caminos, podemos utilizar el `else if`:
+
+```{r}
+# Declaramos la variable
+x <- 4
+
+# Creamos la condicional
+if (x < 0) {
+  print("x es negativa")
+} else if (x == 0) {
+  print("x es cero")
+} else {
+  print("x es positiva")
+}
+```
+
+Queda por mencionar dos detalles. Primero, es importante dejar tanto los `else if` como los `else` en la misma línea que la llave de cierre de la sentencia anterior. Y segundo, que puede haber tantos `else if` como necesitemos, pero solo un `else`.

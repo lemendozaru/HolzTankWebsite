@@ -1,6 +1,6 @@
 ---
 title: "Leer la temperatura mediante BLE"
-date: 2026-06-08
+date: 2026-06-10
 date-modified: 2026-06-10
 categories: [Embebidos, esp32, C++]
 ---

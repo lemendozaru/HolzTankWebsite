@@ -1,0 +1,62 @@
+---
+title: "Leyendo la temperatura en Arduino Cloud"
+date: 2026-06-15
+date-modified: 2026-06-15
+draft: false
+categories: [Embebidos, esp32, C++, Arduino Cloud]
+---
+
+![](media/cloudLogo.svg)
+
+Reutilizaremos mucho de lo hecho en la anterior entrada, salvo que agregaremos código para poder mostrar los valores recuperados por un sensor dht11 en el tablero creado.
+
+## El código
+
+Nos dirigimos al sketch para verificar que las variables que creamos estén bien "declaradas" al principio (aunque estarán sombreadas y dentro del primer comentario):
+
+```cpp
+  float humidity;
+  float temperature;
+  bool led;
+```
+
+y agregamos las siguientes líneas justo después del `#include "thingProperties.h"`:
+
+```cpp
+#include <DHT.h>
+
+#define DHTPIN  4
+#define DHTTYPE DHT11
+DHT dht(DHTPIN, DHTTYPE);
+```
+
+Luego, ya dentro del `setup()` y justo después del `pinMode(16, OUTPUT);` agregamos
+
+```cpp
+dht.begin();
+```
+
+Por último, dentro del `loop()` y justo enseguida de `ArduinoCloud.update();`
+
+```cpp
+static uint32_t lastRead = 0;
+  if (millis() - lastRead >= 2000) {
+    lastRead = millis();
+    float t = dht.readTemperatura();
+    float h = dht.readHumidity();
+    if (!isnan(t) && !isnan(h)) {
+      temperature = t;
+      humidity = h;
+      Serial.print("Temp: "); Serial.print(t);
+      Serial.print(" °C  Hum: "); Serial.println(h);
+    } else {
+      Serial.println("Error leyendo DHT11");
+    }
+  }
+```
+
+## El tablero
+
+Nos vamos a nuestro tablero y lo editamos para agregar dos widgets tipo *Gauges*. A cada uno le asignamos el nombre de la variable a la que lo enlazaremos. Al terminar salimos del modo de edición y volvemos al sketch para cargarlo en la placa.
+
+Si todo ha ido bien, deberíamos poder observar la temperatura y humedad de nuestro entorno en tiempo real, tanto en la computadora como en el teléfono.

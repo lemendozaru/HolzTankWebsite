@@ -87,7 +87,7 @@ y <- 7
 !(!(x < 4) & !!!(y > 12))
 ```
 
-## Operadores dobles
+## Comparando vectores completos
 
 Es posible comparar dos vectores elemento por elemento. Pero, ¿qué se hace si se desea comparar ambos vectores completos? Pues se usan operadores dobles. Veamos unos ejemplos, tanto con AND como con OR:
 
@@ -96,13 +96,13 @@ Es posible comparar dos vectores elemento por elemento. Pero, ¿qué se hace si 
 c(TRUE, TRUE, FALSE) & c(TRUE, FALSE, FALSE)
 
 # Ahora comparemos dos vectores completos
-c(TRUE, TRUE, TRUE) && c(TRUE, TRUE, TRUE)
+all(c(TRUE, TRUE, FALSE)) & all(c(TRUE, FALSE, FALSE))
 
 # Ahora probemos con un OR
 c(TRUE, TRUE, FALSE) | c(TRUE, FALSE, FALSE)
 
 # Terminemos con dos OR
-c(TRUE, TRUE, FALSE) || c(TRUE, FALSE, FALSE)
+all(c(TRUE, TRUE, FALSE)) | all(c(TRUE, FALSE, FALSE))
 ```
 
 Listo, podemos abordar ya las sentencias condicionales y de flujo.

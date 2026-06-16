@@ -1,7 +1,7 @@
 ---
 title: "Controlar un led con GUI"
-date: 2026-06-01
-date-modified: 2026-06-01
+date: 2026-06-03
+date-modified: 2026-06-03
 categories: [Embebidos, esp32, C++, Python]
 ---
 

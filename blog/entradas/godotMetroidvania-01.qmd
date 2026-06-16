@@ -1,11 +1,11 @@
 ---
 title: "Configurando Godot para un Metroidvania genérico"
 date: 2026-06-07
-date-modified: 2026-06-13
+date-modified: 2026-06-15
 categories: [GameDev, Metroidvania, Godot]
 ---
 
-![](media/godotLogo.png)
+![](media/godotEngineLogo.png)
 
 ## Introducción
 
