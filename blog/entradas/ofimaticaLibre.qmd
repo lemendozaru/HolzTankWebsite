@@ -1,0 +1,22 @@
+---
+title: "Una suite de ofimática libre"
+date: 2026-06-15
+date-modified: 2026-06-15
+categories: [Ofimática, LibreOffice, Off-Topic]
+draft: false
+---
+
+![](media/libreOfficeLogo.png)
+
+Comienzo con una serie de tutoriales de Ofimática para asuntos tan variados como documentos oficiales de nivel universitario así como hojas de cálculo básicas o avanzadas. El interés principal es apoyar, aunque sea un poco, desarrollos tan importantes como **LibreOffice**.
+
+Me resulta interesante que habiendo alternativas tan potentes como la anteriormente citada, lo primero en lo que piensa el usuario potencial o ya establecido es en instalar cierto conjunto de programas propietarios que pertenecen a la compañía **Microsoft**, incluso si eso implica "tenerla sin pagar", con todo lo bueno y malo que implica.
+
+¿Por qué se da esta situación? Quizá por lo fácil que fue (y es) conseguir esas aplicaciones por "otros medios". Y la fuerza de la costumbre es grande. Aunque también hay que reconocer que no son tan caras. Genuinamente hay muchas personas que tienen la licencia adquirida legalmente y los esfuerzos de la compañía por acercarla aún más mediante una opción gratuita (y algo capada en opciones, cabe decirlo) que puede ser accedida en línea o bien, otorgando pruebas gratuitas tras instalar su sistema operativo han dado frutos. Y bastantes.
+
+Entonces, ¿nos resignamos? **Office** es hoy por hoy un estándar de facto. Se le encuentra en organizaciones públicas y privadas y su formato es el esperado en cualquier transacción de documentos. Incluso a las hojas de cálculo les decimos "un excel" y cuando queremos especificar en cuál formato esperamos los documentos de texto decimos que "en Word". Así el hecho de que llegue alguien y se ponga a hacer tutoriales de **LibreOffice** en estos tiempos, es una batalla perdida. O quizá no.
+
+Asumo el compromiso de devolver a la suite algo más que solo recomendarla. Crear contenido sobre ella y mostrar que muchas de las cosas que hacemos en **Office** pueden ser hechas en la "Libre" y sin tener que pagar algo o arriesgar la seguridad de nuestro equipo. Y no, no asumo que para usar LibreOffice se tenga que hacer desde Linux. Es perfectamente posible y pausible hacerlo en Windows.
+
+Toca comenzar entonces.
+
