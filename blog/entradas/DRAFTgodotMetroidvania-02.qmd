@@ -1,0 +1,21 @@
+---
+title: "Escena del personaje"
+date: 2026-06-23
+date-modified: 2026-06-23
+categories: [GameDev, Metroidvania, Godot]
+draft: true
+---
+
+## Creando un escenario de pruebas
+
+Primero crearemos un escenario básico que permita realizar pruebas con el personaje principal. Para ello, abrimos nuestra única escena (viniendo de la primera entrada) que se llama `stage.tscn` y seleccionamos `Stage` para agregarle un nodo hijo `Sprite2D`, al cual llamaremos `Ground` y le asignaremos una textura del tipo *GradientTexture2D* (en la opción *Texture -> Vacío*) al cual le daremos clic en el recuadro degradado que aparecerá y luego cambiaremos *Gradient* a un color sólido mediante la manipulación del rectángulo del extremo izquierdo. En mi caso lo dejaré de color negro. Enseguida, tanto en *Width* como en *Height* lo modificamos a `32`.
+
+A nuestro `Sprite2D` le vamos a añadir un nodo `StaticBody2D` y a este último le agregamos su respectiva forma de colisión `CollisionShape2D`. Esta forma la redimensionamos para que cubra por completo nuestro sprite. Lo siguiente es cambiar el tamaño y forma del sprite para que ocupe toda la parte inferior de la pantalla, simulando un suelo. Para ello seleccionamos el nodo `Ground` y lo editamos en cuanto a tamaño y posición.
+
+## Creando al personaje
+
+Toca construir la estructura de archivos para nuestro personaje principal. Debido a que será una escena compuesta por estados, scripts, audio y animaciones, esta vez crearemos una carpeta dedicada únicamente al personaje. Creamos dicha carpeta con el nombre de `player` y dentro de ella agregamos otras que se llamarán `audio`, `scripts`, `sprites` y `states`.
+
+Lo siguiente es crear una escena con nodo raíz del tipo `CharacterBody2D` que renombramos como `Player` y la llamaremos `player.tscn` y la guardaremos dentro de la carpeta homónima. Le asignaremos un nodo `Sprite2D` con una textura del tipo `PlaceholderTexture2D`. Quizá nos parezca demasiado pequeña, ya que es de apenas un píxel de alto y ancho, así que podemos modificar su tamaño a uno que resulte coherente con nuestra cuadrícula. Le pondŕe valores de `48` de alto por `16` de ancho. Es importante mencionar que resulta adecuado que el pivote del sprite quede justo en el extremo inferior del mismo y no en su centro. Para ello, seleccionamos dicho sprite y en la propiedad *Offset -> Y* la dejamos en `-24`. Enseguida agregamos el nodo de forma de colisión como hijo de `Player` y modificamos para que cubra por completo al sprite. Guardamos y seleccionamos la escena `ground.tscn` e instanciamos como su hija a `player.tscn`.
+
+Seleccionamos la escena del personaje y agregamos un script al nodo raíz. Nos aseguramos de guardarlo en la carpeta `scripts` que creamos para el jugador.
