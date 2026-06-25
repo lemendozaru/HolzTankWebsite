@@ -18,4 +18,58 @@ Toca construir la estructura de archivos para nuestro personaje principal. Debid
 
 Lo siguiente es crear una escena con nodo raíz del tipo `CharacterBody2D` que renombramos como `Player` y la llamaremos `player.tscn` y la guardaremos dentro de la carpeta homónima. Le asignaremos un nodo `Sprite2D` con una textura del tipo `PlaceholderTexture2D`. Quizá nos parezca demasiado pequeña, ya que es de apenas un píxel de alto y ancho, así que podemos modificar su tamaño a uno que resulte coherente con nuestra cuadrícula. Le pondŕe valores de `48` de alto por `16` de ancho. Es importante mencionar que resulta adecuado que el pivote del sprite quede justo en el extremo inferior del mismo y no en su centro. Para ello, seleccionamos dicho sprite y en la propiedad *Offset -> Y* la dejamos en `-24`. Enseguida agregamos el nodo de forma de colisión como hijo de `Player` y modificamos para que cubra por completo al sprite. Guardamos y seleccionamos la escena `ground.tscn` e instanciamos como su hija a `player.tscn`.
 
-Seleccionamos la escena del personaje y agregamos un script al nodo raíz. Nos aseguramos de guardarlo en la carpeta `scripts` que creamos para el jugador.
+Seleccionamos la escena del personaje y agregamos un script al nodo raíz. Nos aseguramos de guardarlo en la carpeta `scripts` que creamos para el jugador. Si dejamos la plantilla que viene por defecto, el código estará casi listo, pero realizaremos algunos cambios para tener mayor control. En sí, el código quedará como sigue:
+
+```gdscript
+class_name Player extends CharacterBody2D
+
+@export var SPEED = 300.0
+@export var JUMP_VELOCITY = -400.0
+
+func _physics_process(delta: float) -> void:
+	# Agregar gravedad
+	if not is_on_floor():
+		velocity += get_gravity() * delta
+
+	# Manejar el salto
+	if Input.is_action_just_pressed("salto") and is_on_floor():
+		velocity.y = JUMP_VELOCITY
+
+	# Mover al jugador
+	velocity.x = 0
+
+	if Input.is_action_pressed("izquierda"):
+		velocity.x = -SPEED
+	elif Input.is_action_pressed("derecha"):
+		velocity.x = SPEED
+
+	move_and_slide()
+```
+
+Este script será modificado posteriormente. Por ahora funciona en cuanto a lo básico y además, creamos una clase llamada `Player` que estaremos utilizando más delante. Sin embargo, debemos crear una máquina de estados para el jugador.
+
+## Máquina de estados para el personaje
+
+Recordemos que creamos un conjunto de carpetas dentro de la propia del `player`. Dentro de la que llamamos `states` creamos un script que llamaremos `player_state.gd`. Lo primordial es crear otra clase ahí con la siguiente modificación a la primera línea y dos variables que representarán las dos clases en sí:
+
+```gdscript
+class_name PlayerState extends Node
+
+# Creamos variable player
+var player : Player
+
+# Creamos variable del siguiente estado
+var next_state : PlayerState
+```
+
+Luego crearemos una región donde pondremos las referencias a otros estados y enseguida, crearemos una función que definirá qué sucederá cuando el estado actual se inicie:
+
+```gdscript
+#region /// state references
+# Referencias a otros estados
+#endregion
+
+# Evento cuando el estado inicia
+func _init() -> void:
+	pass
+```
