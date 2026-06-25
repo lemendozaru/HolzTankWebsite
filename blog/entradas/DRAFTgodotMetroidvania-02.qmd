@@ -62,7 +62,7 @@ var player : Player
 var next_state : PlayerState
 ```
 
-Luego crearemos una región donde pondremos las referencias a otros estados y enseguida, crearemos una función que definirá qué sucederá cuando el estado actual se inicie:
+Luego crearemos una región donde pondremos las referencias a otros estados y enseguida, crearemos unas cuantas funciones que definirán qué sucederá cuando el estado actual se inicie, cuando entremos y también cuando salgamos de él. Entonces agregamos:
 
 ```gdscript
 #region /// state references
@@ -70,6 +70,14 @@ Luego crearemos una región donde pondremos las referencias a otros estados y en
 #endregion
 
 # Evento cuando el estado inicia
-func _init() -> void:
+func init() -> void:
+	pass
+
+# Evento cuando se entra al estado
+func enter() -> void:
+	pass
+
+# Evento cuando se sale del estado
+func exit() -> void:
 	pass
 ```
