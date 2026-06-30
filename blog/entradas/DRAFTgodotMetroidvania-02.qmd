@@ -80,4 +80,23 @@ func enter() -> void:
 # Evento cuando se sale del estado
 func exit() -> void:
 	pass
+
+# Manejo de entradas
+func handle_inputs() -> PlayerState:
+	return next_state
 ```
+
+Dentro de las funciones que genera automáticamente Godot hay una llamada `_process()`. La vamos a editar para hacerla similar a la que va a estar manejando las entradas del jugador, además de agregar la función `_physics_process()`:
+
+```gdscript
+# Lo que pasa cuando la función coincide con el estado
+func process(_delta: float) -> PlayerState:
+	return next_state
+
+# Lo que pasa cuando la función coincide con el estado
+func physics_process(_delta: float) -> PlayerState:
+	return next_state
+```
+
+
+
