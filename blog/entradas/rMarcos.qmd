@@ -12,7 +12,7 @@ Un marco de datos (o *dataframe*) en R es un arreglo de elementos que nos puede 
 
 ## Explorando un marco de datos
 
-Vamos a cargar en R un marco de datos que ya viene con su instalación: `mtcars`. Basta con escribir su nombre:
+Vamos a cargar en R un marco de datos que ya viene con su instalación: `mtcars`. Basta con escribir su nombre (recuerda dar clic en la palabra `Code` para mostrar el código R):
 
 ```{r}
 mtcars

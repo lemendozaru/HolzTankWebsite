@@ -16,7 +16,7 @@ Un ejemplo de este tipo de variable es el sexo, el cual está limitado a pocas c
 
 ## Creando factores
 
-Un primer paso es crear el vector que contendrá los datos que vamos a tratar como factores. Por ejemplo, el sexo de cinco individuos:
+Un primer paso es crear el vector que contendrá los datos que vamos a tratar como factores. Por ejemplo, el sexo de cinco individuos (recuerda dar clic en la palabra `Code` para mostrar el código R):
 
 ```{r}
 # Creamos el vector con el sexo

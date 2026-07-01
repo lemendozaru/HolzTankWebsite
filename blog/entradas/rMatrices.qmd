@@ -9,7 +9,7 @@ categories: [DataScience, R]
 
 Una matriz es un arreglo bidimensional de elementos del mismo tipo, dispuestos en un número fijo de filas y columnas. Pueden ser creadas con la función `matrix()`. Veamos un ejemplo:
 
-Construyamos una matriz con nueve elementos dispuestos en tres filas. R sabrá que debe rellenar por filas si se lo decimos con `byrow=T`.
+Construyamos una matriz con nueve elementos dispuestos en tres filas. R sabrá que debe rellenar por filas si se lo decimos con `byrow=T` (recuerda dar clic en la palabra `Code` para mostrar el código R).
 
 ```{r}
 matrix(c(1:9), byrow = T, nrow = 3)

@@ -12,7 +12,7 @@ Una lista es un tipo de dato que puede almacenar objetos como los vectores, matr
 
 ## Creando una lista
 
-Vamos a crear primero los elementos que va a contener nuestra lista.
+Vamos a crear primero los elementos que va a contener nuestra lista (recuerda dar clic en la palabra `Code` para mostrar el código R).
 
 ```{r}
 # Creamos un vector

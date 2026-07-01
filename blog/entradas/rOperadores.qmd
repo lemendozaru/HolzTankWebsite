@@ -21,7 +21,7 @@ Recordemos los operadores necesarios para nuestro flujo de trabajo: la igualdad,
 - Mayor que `>`
 - Mayor o igual que `>=`
 
-Podemos aplicar estos operadores a vectores para encontrar valores que satisfagan algún criterio. Por ejemplo, dado un vector, podemos buscar cuáles de sus elementos son menores a `10`:
+Podemos aplicar estos operadores a vectores para encontrar valores que satisfagan algún criterio. Por ejemplo, dado un vector, podemos buscar cuáles de sus elementos son menores a `10` (recuerda dar clic en la palabra `Code` para mostrar el código R):
 
 ```{r}
 # Creamos el vector

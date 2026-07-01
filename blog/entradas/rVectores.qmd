@@ -11,7 +11,7 @@ Podemos utilizar R como una calculadora bastante avanzada, utilizando los operad
 
 ## Variables
 
-Se declaran de manera muy sencilla. Lo peculiar de R es que no se utiliza el símbolo `=`, si no que se asignan valores con la combinación `<-`. Por ejemplo:
+Se declaran de manera muy sencilla. Lo peculiar de R es que no se utiliza el símbolo `=`, si no que se asignan valores con la combinación `<-`. Por ejemplo (debemos dar clic en la palabra `Code` para mostrar el código R):
 
 ```{r}
 manzanas <- 5
