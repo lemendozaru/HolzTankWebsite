@@ -1,0 +1,73 @@
+---
+title: "Creando un juego con JavaScript - 02"
+date: 2026-07-06
+date-modified: 2026-07-06
+categories: [GameDev, JavaScript]
+draft: false
+---
+
+![](media/javascriptLogo.png)
+
+En la entrada anterior ya pudimos mostrar en consola el resultado de dar clic sobre la opción que consideramos correcta y la web nos decía si así lo fue. Sin embargo, no es una arquitectura adecuada para un juego que incluya más preguntas. Pasemos a realizar los cambios adecuados, básicamente eliminar la mayoría de lo escrito.
+
+```javascript
+// Definimos el objeto para la pregunta
+let pregunta = {
+    nombre: "cat",
+    opciones: ["perro", "gato", "pájaro", "pescado"],
+    correcta: 1
+};
+
+function inicio() {
+
+}
+
+function mostrarPregunta(p) {
+
+}
+
+inicio();
+```
+
+La idea es separar el código de inicio de la funcionalidad que muestra cada pregunta. Por ello creamos la función `inicio()`, la cual creará los detectores de eventos y entonces mostrará la primera pregunta. Así, `mostrarPregunta()` solo hará lo que su nombre indica.
+
+## Función `inicio()`
+
+Dentro de esta seleccionamos todas las opciones y colocamos un *placeholder* que mandará a consola el mensaje de verificación de respuesta correcta. Lo importante es crear los detectores de eventos solo una vez, al inicio de la aplicación.
+
+```javascript
+function inicio() {
+    // obtener opciones
+    let alts = document.querySelectorAll(".opcion");
+    // agregar manejadores de eventos
+    alts.forEach(function(element, index) {
+        element.addEventListener("click", function() {
+            // verificar respuesta correcta
+            console.log("verificar respuesta correcta")
+        });
+    });
+
+    // Muestra primera pregunta
+    mostrarPregunta(pregunta);
+}
+```
+
+## Función `mostrarPregunta()`
+
+La editamos de manera que quede como sigue:
+
+```javascript
+function mostrarPregunta(p) {
+    // Muestra el nombre de pregunta
+    let nombreDiv = document.getElementById("nombre");
+    nombreDiv.textContent = p.nombre;
+
+    // Muestra alternativas
+    let alts = document.querySelectorAll(".opcion");
+    alts.forEach(function(elements, index) {
+        elements.textContent = p.opciones[index];
+    });
+}
+```
+
+Podemos ejecutar esto y tendremos casi lo mismo que antes.

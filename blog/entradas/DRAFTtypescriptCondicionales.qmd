@@ -1,0 +1,100 @@
+---
+title: "Condicionales en TypeScript"
+date: 2026-07-06
+date-modified: 2026-07-06
+categories: [Dev, TypeScript]
+draft: true
+---
+
+![](media/typescriptLogo.png)
+
+Abordemos las sentencias condicionales en TypeScript (JavaScript pues). Vamos a crear una carpeta llamada `condicionales` y dentro crearemos dos archivos: uno llamado `index.html` y otro `script.ts`.
+
+Nos aseguraremos de poner dentro del html lo siguiente:
+
+```html
+<script src="script.ts"></script>
+```
+
+para decirle al navegador dónde está el código que va a ejecutar.
+
+## Las condicionales
+
+Recordemos que son sentencias que validan si algo se cumple y decide cuál acción realizar dependiendo de su estado. Básicamente, "si algo se cumple, haz esto; si no, haz lo otro".
+
+Para validar las condiciones, contamos con unos cuantos operadores de comparación:
+
+- Igualdad: `==`
+- Inegualdad: `!=`
+- Mayor que: `>`
+- Mayor o igual que: `>=`
+- Menor que: `<`
+- Menor o igual que: `<=`
+
+Y también contamos con operadores lógicos:
+
+- AND: `&&`
+- OR: `||`
+- NOT: `!`
+
+Pensemos en un ejemplo basado en la lógica de un juego. Si se presiona "izquierda", el personaje se mueve a la izquierda; si se presiona "derecha" pues se moverá a la derecha; pero si no presiona nada, se quedará quieto. Eso podríamos escribirlo en TypeScript como sigue:
+
+```typescript
+let direccion = "quieto";
+
+if (direccion == "izquierda") {
+    console.log("Se mueve a la izquierda");
+}
+
+else if (direccion == "derecha") {
+    console.log("Se mueve a la derecha")
+}
+
+else {
+    console.log("Quieto")
+}
+```
+
+Pensemos en la lógica de esto. El programa comprobará primero si (dentro del `if`) el valor es "izquierda" y al no cumplirse, pasara al `else if`, donde tampoco podrá validar. Esto hace que se pase al final, el `else`, caso que resulta ser el cierto.
+
+Si guardamos ambos archivos y abrimos el html con el navegador, no pasará nada salvo en la consola, donde mostrará el valor `Quieto`. Podemos probar cambiando el valor en la variable `direccion`.
+
+## Usando los operadores
+
+Veamos un ejemplo más completo. Supongamos el caso en el que queremos conocer si un coche puede llegar a cierta ciudad. Las condiciones consisten en que si la distancia es mayor a 200 kilómetros, no podrá llegar, pero si la ciudad se encuentra entre 100 y 200 km, llegará con al menos \$100 de combustible. Por otro lado, si la distancia es menor a 100 km, llegará con \$25 de gasolina. Sin embargo, si el motor está dañado, no importa la distancia ni el combustible: no llegará a lado alguno.
+
+Creemos nuestro programa que validará esas condiciones:
+
+```typescript
+// Definimos la distancia
+let distancia = 250;
+
+// Definimos el combustible
+let combustible = 100;
+
+// Definimos la condición de poder llegar siempre y
+// cuando la distancia esté entre 100 y 200
+let distanciaCondicion = distancia <= 200 && distancia >= 100;
+
+// ¿El motor está funcionando?
+let motorFuncionando = true;
+
+// Primera evaluación: no llegará
+if (!motorFuncionando || distancia > 200) {
+    console.log("No llegaremos")
+}
+
+// Segunda evaluación: llegará por distancia mediana y
+// combustible suficiente
+else if (distanciaCondicion && combustible >= 100) {
+    console.log("Llegaremos")
+}
+
+// Tercera evaluación: llegará por distancia corta y
+// poco combustible
+else if (distancia < 100 && combustible > 25) {
+    console.log("Llegaremos pronto")
+}
+```
+
+El programa terminará en la primera condición con que al menos una de las situaciones se cumpla, ya sea el motor funcionando o la distancia mayor a 200. La segunda condición se cumple si es cierto que la distancia se encuentra entre 100 y 200 y tenemos más de 100 en combustible. La tercera condición solo será cierta si la distancia es menor a 100 y el combustible supera los 25.
