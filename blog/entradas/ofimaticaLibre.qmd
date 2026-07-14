@@ -6,7 +6,7 @@ categories: [Ofimática, LibreOffice, Off-Topic]
 draft: false
 ---
 
-![](media/libreOfficeLogo.png)
+![](media/libreOfficeLogo.svg)
 
 Comienzo con una serie de tutoriales de Ofimática para asuntos tan variados como documentos oficiales de nivel universitario así como hojas de cálculo básicas o avanzadas. El interés principal es apoyar, aunque sea un poco, desarrollos tan importantes como **LibreOffice**.
 
