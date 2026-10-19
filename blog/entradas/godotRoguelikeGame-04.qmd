@@ -1,0 +1,94 @@
+---
+title: "Creando un jueguito Roguelike. Parte 4"
+date: 2026-10-26
+date-modified: 2026-10-26
+categories: [GameDev, Roguelike, Godot]
+draft: false
+---
+
+![](media/godotEngineLogo.png)
+
+## Programando al personaje
+
+En esta entrada vamos a programar el movimiento del personaje y sus mecánicas de apuntado. Tendremos que definir algunas variables, configurar nodos e implementar la lógica necesaria.
+
+Seleccionaremos al nodo `Personaje` y le agregaremos un script. A este lo guardamos en la carpeta `Programas` como `personaje.gd`.
+
+### Definiendo variables
+
+Las variables que necesitamos son:
+
+- `velocidad_movimiento`: Esta determina qué tan rápido se mueve el personaje. La haremos tipo `export` para poder editarla en el inspector.
+- `sprite`: Hará referencia al nodo sprite del jugador.
+- `pivote_arma`: Hará referencia al nodo alrededor del cual rotará el arma.
+- `cannon`: Esta hará referencia al cañón del arma, es decir, al punto de donde saldrán los proyectiles.
+
+Las últimas tres variables serán configuradas como `onready` para asegurar que los nodos se inicien correctamente cuando se carguen en el árbol de escenas.
+
+El código necesario para la definición de las variables se muestra a continuación:
+
+```gdscript
+@export var velocidad_movimiento : float = 50
+
+@onready var sprite : Sprite2D = $Sprite
+@onready var pivote_arma : Node2D = $Arma
+@onready var cannon : Node2D = $Arma/Cannon
+```
+
+### Implementando el movimiento
+
+Para mover al personaje usaremos la función `_physics_process()`, la cual es llamada cada vez que se genera un cuadro y gestiona los movimientos basados en físicas.
+
+La lógica que usamos para implementar el movimiento obedece al siguiente proceso:
+
+1. Obtener la entrada de movimiento del jugador usando la función `Input.get_vector()`.
+2. Asignar los tiempos de entrada de movimiento al vector de velocidad del jugador.
+3. Llamar la función `move_and_slide()` para aplicar el vector velocidad al jugador y detectar colisiones.
+
+El código necesario se muestra enseguida:
+
+```gdscript
+func _physics_process(delta: float) -> void:
+	var entrada_mover : Vector2 = Input.get_vector("mover_arriba","mover_abajo","mover_izquierda","mover_derecha")
+	velocity = entrada_mover * velocidad_movimiento
+	move_and_slide()
+```
+
+### Implementando el apuntado
+
+Para hacer que el arma rote siguiendo al cursor, usaremos la función `_process()`. Esta función es llamada cada cuadro y gestiona actualizaciones que no están basadas en físicas. Los pasos para implementar el apuntado son:
+
+1. Obtener la posición del ratón usando la función `get_global_mouse_position()`.
+2. Calcular la dirección desde el jugador hacia la posición del ratón.
+3. Normalizar el vector dirección.
+4. Ajustar la rotación del pivote del arma basados en el vector dirección.
+5. Convertir la rotación de radianes a grados usando la función `rad_to_deg()`.
+6. Ajustar la rotación tras agregar 90° para apuntar el arma en la dirección correcta.
+
+El código se proporciona enseguida:
+
+```gdscript
+func _process(delta: float) -> void:
+	var posicion_raton : Vector2 = get_global_mouse_position()
+	var direccion_raton : Vector2 = (posicion_raton - global_position).normalized()
+	pivote_arma.rotation_degrees = rad_to_deg(direccion_raton.angle()) + 90
+```
+
+### Rotando al sprite
+
+Para conseguir el efecto de que el personaje se gire hacia donde apunta el cursor agregaremos la siguiente línea al final de `_process()`:
+
+```gdscript
+sprite.flip_h = direccion_raton.x < 0
+```
+
+### Guardando al personaje como escena
+
+Vamos a guardar al personaje como una escena independiente, lo cual nos permitirá reutilizarlo tantas veces como queramos.
+
+Para ello, nos dirigimos al panel de *Escenas*, seleccionamos el nodo `Personaje`, damos clic derecho y seleccionamos *Guardar rama como escena* y guardamos como `personaje.tscn`.
+
+Y listo. El personaje ya se mueve y apunta. En la siguiente entrada veremos cómo crear y generar las diferentes mazmorras del juego.
+
+
+

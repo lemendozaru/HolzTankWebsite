@@ -1,0 +1,58 @@
+---
+title: "Creando un jueguito Roguelike. Parte 2"
+date: 2026-10-24
+date-modified: 2026-10-24
+categories: [GameDev, Roguelike, Godot]
+draft: false
+---
+
+![](media/godotEngineLogo.png)
+
+## Configurando la estructura del proyecto
+
+Crearemos un proyecto en Godot del tipo `Forward+` para prepararlo para PC. Nos aseguramos de crearle de manera que esté preparado para control de versiones en Git.
+
+Luego iremos creando la estructura del proyecto. Para ello armaremos la siguiente:
+
+- `Escenas`, en la cual iremos guardando precisamente esa parte de nuestro juego. Dentro de esta carpeta crearemos otras:
+    - `Niveles`, que es donde gestionaremos los distintos niveles de nuestro proyecto.
+    - `Cuartos`, para almacenar los distintos espacios de los niveles.
+    - `Objetos`, para guardar las escenas de los objetos.
+    - `Enemigos`, para ir guardando las escenas de los enemigos.
+
+- `Programas`, la cual será independiente de las escenas y es donde colocaremos los archivos de texto con nuestra programación del juego.
+- `Audio`, donde llevaremos los archivos de sonido propuestos en el directorio de assets. Recordemos que podemos arrastrarlos mediante el navegador de archivos de nuestro sistema operativo.
+- `Visuales`, que es donde guardaremos los assets visuales necesarios para nuestro proyecto y que también están en la lista de propuestos.
+
+## Creando la primera escena
+
+Creamos una escena 2D y renombramos su nodo raíz como `Principal`. La vamos a guardar en la carpeta `Niveles` como `nivel_01.tscn`.
+
+## Cambiando el color de fondo
+
+Para nuestro juego queremos un color de fondo específico que complemente muy bien nuestro conjunto de mosaicos o *tilesets*. Para ello nos vamos a *Projecto -> Configuración del Projecto*, nos quedamos en la pestaña *General* y entramos a la categoría *Renderizado -> Entorno* y nos vamos hasta el final de la ventana para encontrar la sección *Predeterminados* para cambiar el color del entorno. Elegiremos para este proyecto un rojo oscuro (#613c3c).
+
+## Configurando las entradas de control
+
+Sin cerrar la ventana de *Configuración del Proyecto* pasamos a la pestaña *Mapa de Entrada* y agregamos las acciones:
+
+- `mover_arriba`, tecla {{<kbd W>}}
+- `mover_abajo`, {{<kbd S>}}
+- `mover_izquierda`, {{<kbd A>}}
+- `mover_derecha`, {{<kbd D>}}
+- `atacar`, botón izquierdo del ratón
+
+Recordemos que para agregar acciones en Godot debemos escribir primero el nombre de la acción en donde pone *Añadir Nueva Acción* y dar clic en el botón *Añadir*. Después, para agregar el evento, debemos dar clic en el icono *+* que aparece al lado de la acción recién agregada y enseguida presionar la tecla física que queremos asignar.
+
+En el caso del botón izquierdo del ratón, basta con precisamente presionar dicho botón en donde pone *Esperando entrada*.
+
+Y listo, ya tenemos la configuración básica del proyecto. En otra entrada veremos la creación del personaje.
+
+
+
+
+
+
+
+
+

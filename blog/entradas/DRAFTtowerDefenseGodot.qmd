@@ -1,0 +1,7 @@
+---
+title: "Escena del personaje"
+date: 2026-06-23
+date-modified: 2026-06-23
+categories: [GameDev, Metroidvania, Godot]
+draft: true
+---

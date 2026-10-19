@@ -1,0 +1,43 @@
+---
+title: "Introducción a R y RStudio"
+date: 2026-10-13
+date-modified: 2026-10-13
+categories: [DataScience, R, RStudio]
+draft: true
+---
+
+R es una poderosa herramienta que además resulta ser flexible y profesional, muy útil en la realización de tareas estadísticas, desde las más básicas hasta las más avanzadas. Es apoyado por una enorme comunidad académica y es gratuito, a lo que hay que sumar que su descarga e instalación resulta ser bastante sencilla.
+
+Por otro lado, RStudio es un excelente editor para R, complementando bastante bien el flujo de trabajo y disminuyendo la cantidad necesaria de código para tareas sencillas. También es gratuito y muy sencillo de descargar e instalar.
+
+A continuación muestro el proceso de instalación de ambas herramientas.
+
+## Descarga e instalación de R
+
+R tiene su propio sitio oficial, por lo que toda descarga e instalación debe realizarse a través de este. Accedemos a él en el siguiente [enlace](https://cloud.r-project.org/). El siguiente paso es dar clic en el enlace apropiado para el sistema operativo que estemos utilizando. Por ejemplo, `Download R for Windows` y en la siguiente página volvemos a dar clic en `install R for the first time`. Volverá a cargar otra página, donde tendremos que clicar en `Download R-4.6.1 for Windows` para, ahora sí, acceder al instalador de R.
+
+Nos toca esperar a que termine la descarga y enseguida, ejecutamos como administrador y seleccionamos el idioma adecuado. El siguiente paso consiste en seleccionar `Siguiente` y cuando se muestre, dar clic en `Finalizar` para completar la instalación.
+
+Para comprobar que todo ha salido bien, podemos dirigirnos al menú de inicio de Windows, buscar y ejecutar R. En caso de que aparezcan dos versiones, podemos probar con la que haga referencia a la arquitectura *x64*. En Windows es típico que la ventana de R esté conformada por dos secciones: la consola y el editor. Pero no nos agobiemos. Solo lo abrimos para verificar que todo vaya bien. Podemos cerrar el programa.
+
+## Descarga e instalación de RStudio
+
+RStudio es un entorno de desarrollo para R que permite escribir código, explorar datos y compartir los resultados en una sola aplicación. Es también compatible con Python, por lo que perfectamente puede ser utilizado en proyectos que lo combinen con R.
+
+Para descargar RStudio basta con dirigirnos a su página de [descargas](https://docs.posit.co/ide/user/#rstudio-ide-oss-downloads) y dar clic en el enlace de nuestro sistema operativo, por ejemplo, Windows. Se repite el mismo proceso que con R: dar clic en `Siguiente` y al final en `Finalizar`.
+
+## Operaciones básicas con RStudio
+
+Si bien estaremos trabajando con RStudio, no debemos perder de vista que en realidad todo lo estará realizando R. Eso es importante ya que nos permite estar concientes de que no todo flujo de trabajo exige usar RStudio. Sin embargo, tiene sus ventajas, como contar con un entorno dividido en secciones bien diferenciadas. Estas secciones son, por defecto: la consola de comandos, el entorno y el navegador de archivos. Cuando comencemos a trabajar aparecerán algunas adicionales.
+
+Bien, pasemos a ver lo básico.
+
+RStudio nos permite usarlo como un simple editor de texto con algunas características adicionales para crear *scripts* de R. Sin embargo, una buena alternativa a solo *scripts* es el uso de los cuadernos. Los cuadernos nos permiten no solo escribir código R, si no también ejecutarlo en tiempo real y agregar texto que no necesariamente se corresponda con comentarios. Es, literalmente, un cuaderno de apuntes. Para habilitar esta función, debemos crear un archivo de tipo **R Notebook**, lo cual se consigue yendo a *File -> New File -> R Notebook*. Le damos el nombre que deseemos y lo guardamos en la ubicación que mejor nos parezca.
+
+Veremos que aparecerá una nueva sección, la cual es uno de los editores más potentes y versátiles de RStudio. Damos clic en el botón `Visual` que se encuentra justo encima del editor propiamente dicho para cambiar a un entorno visual y más similar a aplicaciones como Microsoft Word.
+
+Ahora sí, comencemos a trabajar en lo verdaderamente importante.
+
+### Variables en R
+
+Las variables se crean de manera similar a otros lenguajes, pero no exactamente igual. Para empezar, el símbolo de asignación no es el `=` de toda la vida. En R es una "flecha": `->`.

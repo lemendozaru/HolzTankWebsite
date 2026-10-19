@@ -1,0 +1,62 @@
+---
+title: "Creando un jueguito Roguelike. Parte 1"
+date: 2026-10-23
+date-modified: 2026-10-23
+categories: [GameDev, Roguelike, Godot]
+draft: false
+---
+
+![](media/godotEngineLogo.png)
+
+## Diseño del juego
+
+Primero vamos a definir rápidamente qué es un roguelike. Es un tipo de juego en el que nuestro personaje anda dentro de un cuarto y dispara a los enemigos que aparecen para poder pasar al siguiente cuarto, todo mientras recolecta objetos y vence un jefe específico para pasar al siguiente nivel. Juegos de este estilo bien pueden ser *Binding of Isaac*, por ejemplo.
+
+Por lo tanto, debemos cumplir con lo siguiente:
+
+- Generar espacios proceduralmente de distintos tipos y pasillos que los conecten.
+- Objetos para recolectar y mejorar las habilidades del personaje.
+- Enemigos que se activan cuando el personaje entra al cuarto.
+- Un minimapa para mostrar la posición del personaje y el esquema del nivel.
+- Un sistema de salud mostrado por corazones o alguna otra figura.
+- Un menú del sistema que permita iniciar la partida o quitar el juego.
+
+## Mecánicas
+
+El foco principal estará en la generación de los cuartos. Trabajará como sigue:
+
+1. Al inicio, un cuarto será generado proceduralmente.
+2. Cada cuarto tendrá puertas que abran o cierran dependiendo de la presencia o ausencia de enemigos.
+3. Las puertas se cerrarán cuando el jugador entre a un cuarto con enemigos y solo se abrirán cuando dichos enemigos sean derrotados.
+
+## Controles propuestos
+
+De entrada, usaremos un teclado, aunque nada nos impide brindar compatibilidad con un control en un futuro.
+
+- Movimiento: flechas de dirección o conjunto WASD.
+- Apuntar: se hará con un ratón.
+- Disparar: botón izquierdo del ratón. Los disparos solo dañarán a los enemigos hasta que sean tocados por los proyectiles.
+
+## Los enemigos
+
+Se van a comportar de la siguiente manera:
+
+- Se activarán solo cuando el personaje entre a su espacio o cuarto.
+- Perseguirán al personaje y le harán daño al alcanzarlo.
+- Pueden ser derrotados por los proyectiles del personaje.
+- Cuando todos sean derrotados se abrirán las puertas del cuarto.
+
+## Interfaz de usuario
+
+Debemos mostrar en pantalla lo siguiente:
+
+- Un minimapa que muestre la posición del personaje y la estructura del nivel.
+- Un sistema de salud que muestre la cantidad de vida mediante iconos.
+- Un menú del sistema que permita iniciar o quitar el juego.
+
+
+
+
+
+
+
