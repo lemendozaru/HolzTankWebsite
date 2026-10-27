@@ -1,0 +1,122 @@
+---
+title: "Creando un jueguito Roguelike. Parte 5"
+date: 2026-10-20
+date-modified: 2026-10-20
+categories: [GameDev, Roguelike, Godot]
+draft: false
+---
+
+![](media/godotEngineLogo.png)
+
+## Intro
+
+En esta entrada pasamos a crear la plantilla de nuestro cuarto. La estaremos utilizando como la base de todos los demás que necesitemos en nuestro juego. Todos los cuartos serán cuadrados y estarán interconectados mediante túneles y puertas.
+
+## La plantilla del cuarto
+
+La estructura básica de nuestros cuartos consiste en:
+
+- Forma cuadrada.
+- Cada lado tiene una puerta o una barrera.
+- Una barrera es una pared plana que aparece si el cuarto no tiene vecinos, mientras que una puerta es una entrada/salida por donde el jugador puede pasar justo a cuartos vecinos.
+- Las puertas pueden estar abiertas o cerradas, lo cual depende de si hay enemigos en el cuarto.
+
+Pasemos a los pasos necesarios:
+
+## Configurando el nodo del cuarto
+
+Dentro de la escena principal (`nivel_01`) vamos a seleccionar el nodo `Principal`. Crearemos un nodo `StaticBody2D` y le llamaremos `PlantillaCuarto`. Este será el nodo base para todos los cuartos del juego.
+
+## Agregando la capa TileMap
+
+Crearemos un nodo `TileMapLayer` como hijo de `PlantillaCuarto` y le llamaremos `Base`.
+
+En el inspector crearemos un nuevo `TileSet` y configuramos su tamaño de baldosa a 8 por 8 píxeles.
+
+Dentro de este nuevo `TileSet` nos llevamos por arrastre nuestro archivo destinado a ello. Recordemos que debemos llevarlo al campo vacío en la parte inferior de la pantalla. En el conjunto de assets sería `Tiles.png`.
+
+Una vez dentro de la pestaña *TileSet*, ubicamos la sección *Atlas*. Ahí nos toca cambiar el margen y la separación para asegurarnos que las baldosas estén bien dimensionadas. Resulta que usando el archivo provisto, los márgenes quedaron en 1px y las separaciones en 2px.
+
+Notaremos que algunas baldosas quedan fuera del mapa e incluso Godot nos avisa con un pequeño símbolo de advertencia al lado de los tres puntos de la sub-ventana *TileSet*. Damos clic en esos tres puntos y seleccionamos *Eliminar Tiles fuera de la Textura*.
+
+## Dibujemos las esquinas del cuarto
+
+Estando ahora en la pestaña *TileMap*, vamos a dibujar las esquinas del cuarto. Recordemos que en el centro estarán las puertas o barreras, así que esa parte de los muros la dejaremos para luego.
+
+Vamos a dejar nuestro cuarto con 16 baldosas por lado, por lo que debemos dibujarlo con base en esa medida, incluyendo las que dejaremos sin colocar para tener espacio para las puertas y barreras.
+
+## Agregando *colliders* a muros
+
+Seleccionamos `PlantillaCuarto` y le agregamos un nodo hijo del tipo `CollisionPolygon2D`. Veremos que aparece una especie de recuadro en el origen de la vista 2D en Godot. Le renombramos como `ColliderMuro`. Mediante clics, le daremos la forma de manera que cubra por completo una de las paredes completa (el "ángulo" de 90°, por así decirlo). Procuraremos que abarque toda la cámara del juego.
+
+Si conseguimos una "L" bicolor (rojo y morado), lo hemos hecho bien. Toca duplicar y rotar las copias hasta conseguir cubrir las paredes del cuarto. Si le dimos una proporción adecuada, será un proceso sencillo.
+
+## Agregando entradas
+
+Volvemos a seleccionar `PlantillaCuarto` y le agregamos un nodo hijo de tipo `Node2D`, al cual llamaremos `EntradaNorte`.
+
+Nos aseguramos de seleccionar este último nodo y le anidamos un `Node2D` también, al cual llamaremos `Puerta`.
+
+Ahora que `Puerta` está seleccionada, toca anidarle un nodo `TileMapLayer` que llamaremos `Tunel`.
+
+Para no tener que cargar de nuevo el archivo `Tiles.png` para darle textura al túnel, podemos irnos al nodo `Base` y en su propiedad *TileSet* damos clic en el menú desplegable y seleccionamos *Guardar como*, para así guardarlo como un recurso de Godot (con el nombre que queramos, pero tendrá la extensión `.tres`). Así, volvemos a `Tunel` y en su respectiva *TileSet* le damos a *Carga rápida* y seleccionamos nuestro recién guardado recurso (nota para más delante: se guardó como `tileset.tres`).
+
+Pintamos nuestros túneles cuidando que también queden cubiertos por los colliders de los muros.
+
+## Agregando las puertas y colisiones
+
+Seleccionamos `Puerta` y le anidamos un `StaticBody2D` que renombraremos como `PuertaCerrada`.
+
+Ahora le anidamos un `Sprite2D` a `PuertaCerrada` y le llamaremos `PuertaSprite`. Como su respectiva textura, arrastraremos `Tiles.png` y activaremos *Region* para enseguida editarla. Recortaremos de manera que nos quede seleccionada el área correspondiente a una puerta y aceptamos.
+
+Ahora toca seleccionar y desplazar el nodo `PuertaCerrada` hasta la entrada norte y colocarlo de manera centrada al inicio del túnel. Ahora seleccionamos `PuertaSprite` y lo movemos de manera que cubra una de las mitades. Para rellenar completamente, duplicamos el nodo y desplazamos hasta conseguir el efecto de ser una puerta de dos hojas.
+
+Seleccionamos de nuevo `PuertaCerrada` y le agregamos un `CollisionShape2D`. A esta le daremos forma rectangular y la ajustamos al par de sprites de la puerta.
+
+## Agregando disparadores y punto de aparición
+
+Vamos a seleccionar `EntradaNorte` y le anidaremos un `Area2D` a la que llamaremos `DisparadorSalida`. Le anidamos a este último una `CollisionShape2D` para detectar que el jugador la ha atravesado. Le daremos forma circular y la redimensionamos para que entre en el túnel. Naturalmente, moveremos el nodo disparador a dicho túnel.
+
+Seleccionamos `EntradaNorte` y le anidamos un `Node2D` y le vamos a llamar `JugadorSpawn`. Este nodo va a definir dónde aparecerá el jugador cuando entre por dicha puerta, así que debe tener sentido.
+
+## Creando las barreras
+
+Recordemos que los cuartos tendrán tanto puertas como barreras, siendo definida cuál de ellas aparece por la presencia o no de cuartos vecinos.
+
+Seguiremos trabajando en la entrada norte, aunque ya tenemos una puerta en su lugar. Para no perdernos, vamos a ocultar el nodo `Puerta` y seleccionaremos `EntradaNorte`.
+
+El siguiente paso es anidar un `StaticBody2D` a `EntradaNorte`. Lo llamamos `Barrera`. Luego a este le anidamos un `TileMapLayer` y cargamos nuestro recurso `tileset.tres`. Lo pintamos como si fuera un muro y enseguida le agregamos una `CollisionShape2D` rectangular que naturalmente ajustaremos acorde a nuestra barrera.
+
+## Agregando los scripts de las entradas
+
+Cada entrada tendrá su respectivo script que gestionará sus elementos. Comencemos con nuestra entrada ya existente.
+
+Elegiremos `EntradaNorte` y le adjuntamos un script que guardaremos como `cuarto_entrada.gd` en la respectiva carpeta `Programas`.
+
+De momento nos basta con haber creado el archivo. Volveremos a él más adelante.
+
+## Agregando las demás entradas
+
+Con el nodo `EntradaNorte` tenemos ya lo necesario para las demás entradas. Solo debemos duplicar y rotar de acuerdo a su posición.
+
+Por ejemplo, para la entrada oriental (la que corresponde al Este), seleccionamos el nodo `EntradaNorte` y lo duplicamos (recordemos que se consigue con {{<kbd CTRL+D>}}). Le cambiamos el nombre a `EntradaEste`.
+
+Enseguida lo rotamos con la tecla {{<kbd CTRL>}} presionada para mayor control hasta que lo hagamos coincidir con la entrada derecha. Para facilitar su visualización, vamos a ocultar su barrera y mostrar su puerta.
+
+Repetimos hasta tener las cuatro entradas al cuarto. Debemos asegurarnos que todos los sprites y cajas de colisión estén bien orientadas.
+
+## Guardando la plantilla
+
+Una vez que hayamos terminado con todas las entradas, vamos a seleccionar `PlantillaCuarto` y daremos clic derecho para seleccionar *Guardar rama como escena*. La guardaremos en la carpeta `Escenas/Cuartos` con el nombre que nos sugiere Godot.
+
+Hecho lo anterior, añadiremos un programa al nodo `PlantillaCuarto` que guardaremos como `cuarto.gd` en la carpeta de `Programas`. El único cambio que le haremos a este script es agregar una línea al principio de todo con la definición de una clase:
+
+```gdscript
+class_name Cuarto
+extends StaticBody2D
+```
+
+Con esto nuestra plantilla de cuarto ya ha quedado definida. En la siguiente entrada comenzaremos a trabajar en la generación procedural de los escenarios.
+
+
+

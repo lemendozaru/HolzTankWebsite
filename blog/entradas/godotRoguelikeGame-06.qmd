@@ -1,0 +1,214 @@
+---
+title: "Creando un jueguito Roguelike. Parte 6"
+date: 2026-10-21
+date-modified: 2026-10-21
+categories: [GameDev, Roguelike, Godot]
+draft: false
+---
+
+![](media/godotEngineLogo.png)
+
+## Breve explicación
+
+Sin entrar en demasiados detalles, la generación de los cuartos es un proceso de tres pasos:
+
+1. Determinar dónde serán colocados los cuartos.
+2. Generar los cuartos de acuerdo al paso anterior.
+3. Informar a cada cuarto acerca de sus vecinos para generar puertas o barreras de acuerdo con ello.
+
+## Paso 1
+
+Usaremos arreglos 2D (*arrays*), los cuales son una estructura de datos que manejan múltiples valores en una rejilla de dos dimensiones. Godot no tiene de momento una manera explícita o prefabricada de manejar arreglos 2D, pero crearemos los nuestros, que van a manejar valores lógicos para indicar presencia o ausencia de vecinos.
+
+### Configurando el nodo generativo
+
+En la escena `Nivel_01` haremos dos cosas: eliminar `PlantillaCuarto` y anidar como hijo de `Principal` un nodo `Node` y lo subimos por encima de los demás nodos. Le añadiremos un script que guardaremos como `generacion_cuartos.gd` en su respectiva carpeta.
+
+Ahí definiremos una clase y algunas variables:
+
+```gdscript
+class_name  GeneracionCuarto
+extends Node
+
+@export var talla_mapa : int = 7
+@export var cuartos_a_generar : int = 12
+var conteo_cuartos : int = 0
+var mapa : Array[bool]
+var cuartos : Array[Cuarto]
+var cuartos_pos_desfase : float = 160
+
+var primer_cuarto_x : int = 3
+var primer_cuarto_y : int = 3
+var primer_cuarto : Cuarto
+
+# Cargamos nuestra plantilla de cuarto
+var escena_cuarto : PackedScene = preload("res://Escenas/Cuartos/plantilla_cuarto.tscn")
+
+@export var jugador : CharacterBody2D
+```
+
+Estas variables expresan lo siguiente:
+
+- `talla_mapa`: Define la anchura y altura de nuestro mapa 2D.
+- `cuartos_a_generar`: Es el número de cuartos que queremos generar.
+- `conteo_cuartos`: Registra el número actual de cuartos generados.
+- `mapa`: Un arreglo 2D que define la presencia de cuartos.
+- `cuartos`: Un arreglo que registra los cuartos generados.
+- `cuartos_pos_desfase`: El espacio "físico" que hay entre cuartos.
+- `primer_cuarto_x` y `primer_cuarto_y`: La posición inicial del primer cuarto.
+- `primer_cuarto`: Lleva el registro del primer cuarto, una vez ya instanciado.
+- `jugador`: una variable para seleccionar al caracter del jugador.
+
+Toca crear unas cuantas funciones que no definiremos del todo aún:
+
+```gdscript
+# Inicializa el proceso de generación
+func _ready():
+	pass
+
+# Configura el mapa e inicia la generación de cuartos
+func _generar():
+	pass
+
+# Verifica y coloca cuartos recursivamente
+func _checar_cuarto(x : int, y : int, direccion_deseada : Vector2, primer_cuarto : bool = false):
+	pass
+
+# Instancia los cuartos
+func _instanciar_cuartos():
+	pass
+```
+
+### Generación
+
+Lo primero que haremos será llamar a la función `_generar()` en nuestra `_ready()`:
+
+```gdscript
+func _ready():
+	_generar()
+```
+
+Ahora debemos asegurarnos que el conteo de cuartos quede en 0 al inicio, ya que no hemos generado alguno aún. Entonces definiremos el tamaño del mapa, lo cual queda definido por `talla_mapa`.
+
+Luego llamaremos a `_checar_cuarto()`, enviando la posición de nuestro primer cuarto para que la generación arranque en el centro de nuestra malla. Finalmente llamamos a `_instanciar_cuartos()`, tal que `_checar_cuarto()` gestione lo principal de nuestra generación y rellene el arreglo.
+
+Definamos la función `_generar()`:
+
+```gdscript
+# Configura el mapa e inicia la generación de cuartos
+func _generar():
+	# Iniciamos conteo en 0
+	conteo_cuartos = 0
+	# Redimensionamos el mapa
+	mapa.resize(talla_mapa * talla_mapa)
+
+	# Inicia el chequeo de cuartos en el centro de la malla
+	_checar_cuarto(primer_cuarto_x, primer_cuarto_y, Vector2.ZERO, true)
+
+	# Una vez definido el mapa, instancia cuartos
+	_instanciar_cuartos()
+```
+
+### Condiciones de retorno
+
+La función `_checar_cuarto()` deberá verificar que ciertas condiciones se cumplan para devolver algo tempranamente, esto es, antes de generar algún cuarto.
+
+1. Si el conteo de cuartos es mayor a los cuartos a generar.
+2. Si las coordenadas están fuera de los límites del mapa.
+3. El cuarto ya existe.
+
+Vamos a implementar estos puntos.
+
+Los primeros dos se consiguen con lo siguiente dentro de la función `_checar_cuarto()`:
+
+```gdscript
+  func _checar_cuarto(x : int, y : int, direccion_deseada : Vector2, primer_cuarto : bool = false):
+    # Conteo excedido
+	if conteo_cuartos >= cuartos_a_generar:
+		return
+
+	# Tamaño del mapa sobrepasado
+	if x < 0 or x > talla_mapa - 1 or y < 0 or y > talla_mapa - 1:
+		return
+```
+
+El tercero sí necesita mayores arreglos. Vamos a crear dos funciones auxiliares que 1. Tomará un valor *x* y *y* y devolverá un `true` o un `false`, dependiendo de si la coordenada se encuentra dentro del arreglo del mapa; y 2. Tomará también un valor *x* y *y*, además de un booleano con base en si el cuarto existe o no. Entonces coloca el cuarto en el arreglo `mapa`. Ponemos ambas funciones al final.
+
+```gdscript
+func _obtener_mapa(x : int, y : int) -> bool:
+	return mapa[x + y * talla_mapa]
+
+func _poner_mapa(x : int, y : int, value : bool):
+	mapa[x + y * talla_mapa] = value
+```
+
+Volvemos a `_checar_cuarto()` y agregamos estas funciones. Además, incrementaremos el conteo de cuartos, para dejar el código como sigue:
+
+```gdscript
+func _checar_cuarto(x : int, y : int, direccion_deseada : Vector2, primer_cuarto : bool = false):
+	# Conteo excedido
+	if conteo_cuartos >= cuartos_a_generar:
+		return
+
+	# Tamaño del mapa sobrepasado
+	if x < 0 or x > talla_mapa - 1 or y < 0 or y > talla_mapa - 1:
+		return
+
+	# Si el cuarto ya existe
+	if _obtener_mapa(x, y) == true:
+		return
+
+	conteo_cuartos += 1
+
+	_poner_mapa(x, y, true)
+```
+
+### Decidiendo dirección de la expansión
+
+La función que decide en cuál dirección se puede expandir el cuarto. Usará un número aleatorio y un operador para determinar la probabilidad de expandirse en cada dirección. Configuremos la dirección norte primero.
+
+En la misma función `_checar_cuarto()` agregamos las siguientes líneas:
+
+```gdscript
+var hacia_norte : bool = randf() > (0.2 if direccion_deseada == Vector2.UP else 0.8)
+	var hacia_oeste : bool = randf() > (0.2 if direccion_deseada == Vector2.LEFT else 0.8)
+	var hacia_este : bool = randf() > (0.2 if direccion_deseada == Vector2.RIGHT else 0.8)
+	var hacia_sur : bool = randf() > (0.2 if direccion_deseada == Vector2.DOWN else 0.8)
+
+	if hacia_norte or primer_cuarto:
+		_checar_cuarto(x, y - 1, Vector2.UP if primer_cuarto else direccion_deseada)
+	if hacia_oeste or primer_cuarto:
+		_checar_cuarto(x - 1, y, Vector2.LEFT if primer_cuarto else direccion_deseada)
+	if hacia_este or primer_cuarto:
+		_checar_cuarto(x + 1, y, Vector2.RIGHT if primer_cuarto else direccion_deseada)
+	if hacia_sur or primer_cuarto:
+		_checar_cuarto(x, y - 1, Vector2.DOWN if primer_cuarto else direccion_deseada)
+```
+
+### Instanciando los cuartos
+
+Ahora que tenemos el mapa generado, vamos a instanciar los cuartos. Usaremos un ciclo que verificará los cuartos con base en sus coordenadas. Si no podemos encontrar un cuarto, pasaremos al siguiente. Si uno es encontrado, lo agregaremos a la escena, lo colocaremos y lo adjuntaremos al arreglo. El código que lo permite es el siguiente:
+
+```gdscript
+# Instancia los cuartos
+func _instanciar_cuartos():
+	for x in range(talla_mapa):
+		for y in range(talla_mapa):
+			if _obtener_mapa(x,y) == false:
+				continue
+
+			var cuarto : Cuarto = escena_cuarto.instantiate()
+			get_tree().root.add_child.call_deferred(cuarto)
+			cuartos.append(cuarto)
+
+			cuarto.global_position = Vector2(x,y) * cuartos_pos_desfase
+```
+
+Podemos ejecutar la escena, pero probablemente no veamos nada. Toca modificar el zoom de `Camera2D` a un valor aproximado al 0.5. Listo, ya hemos generado con éxito nuestro nivel. Sin embargo, falta pulir varios detalles, lo cual será abordado en otra entrada.
+
+
+
+
+
+
+
