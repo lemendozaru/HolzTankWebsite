@@ -1,0 +1,152 @@
+---
+title: "Creando un jueguito Roguelike. Parte 7"
+date: 2026-10-22
+date-modified: 2026-10-22
+categories: [GameDev, Roguelike, Godot]
+draft: false
+---
+
+![](media/godotEngineLogo.png)
+
+## Configurando las entradas a los cuartos
+
+En esta parte nos vamos a enfocar en los cuartos y las entradas a los mismos. Comenzaremos con un script sencillo que nos permitirá realizar pruebas, para luego movernos a uno más complejo.
+
+### Variables
+
+Definiremos las variables necesarias. Requerimos un enumerador para las direcciones. Este será definido en el script `cuarto.gd` para centralizar los datos, lo cual se hace como sigue:
+
+```gdscript
+enum Direccion
+{
+	NORTE,
+	OESTE,
+	ESTE,
+	SUR
+}
+```
+
+Luego, en `entrada_cuarto.gd` vamos a definir la variable de dirección usando el enumerador:
+
+```gdscript
+@export var direccion : Cuarto.Direccion = Cuarto.Direccion.NORTE
+```
+
+Enseguida vamos a crear algunas variables que hagan referencia a ciertos nodos en el mismo script:
+
+```gdscript
+@onready var barrera : StaticBody2D = $Barrera
+@onready var barrera_collider : CollisionShape2D = $Barrera/CollisionShape2D
+@onready var puerta : Node2D = $Puerta
+@onready var puerta_cerrada : StaticBody2D = $Puerta/PuertaCerrada
+@onready var puerta_cerrada_collider : CollisionShape2D = $Puerta/PuertaCerrada/CollisionShape2D
+@onready var jugador_spawn : Node2D = $JugadorSpawn
+@onready var disparador_salida : Area2D = $DisparadorSalida
+var vecino : Cuarto
+```
+
+### Funciones
+
+Toca definir las funciones en el mismo script. Vamos a poner únicamente la estructura y más delante las iremos rellenando.
+
+```gdscript
+func _ready():
+	pass
+
+func colocar_vecino(cuarto_vecino : Cuarto):
+	pass
+
+func colocar_barrera(colocar : bool):
+	pass
+
+func abrir_puerta():
+	pass
+
+func cerrar_puerta():
+	pass
+
+func _on_body_entered_disparador_salida(body):
+	pass
+```
+
+#### Función `_ready()`
+
+Vamos a conectar mediante código la señal `body_entered` del `disparador_salida` a la función `_on_body_entered_disparador_salida()`.
+
+```gdscript
+func _ready():
+	disparador_salida.body_entered.connect(_on_body_entered_disparador_salida)
+```
+
+#### Función `obtener_direccion_vecino()`
+
+Debajo de las funciones que ya hemos definido, toca crear una nueva, que obtendrá la dirección de la entrada vecina:
+
+```gdscript
+func obtener_direccion_vecino() -> Cuarto.Direccion:
+	if direccion == Cuarto.Direccion.NORTE:
+		return Cuarto.Direccion.SUR
+	elif direccion == Cuarto.Direccion.SUR:
+		return Cuarto.Direccion.NORTE
+	elif direccion == Cuarto.Direccion.OESTE:
+		return Cuarto.Direccion.ESTE
+	else:
+		return Cuarto.Direccion.OESTE
+```
+
+#### Función `abrir_puerta()`
+
+Esta abrirá la puerta por poner en falso a `puerta_cerrada` y deshabilitar su collider. Necesitamos devolver tempranamente si es que hay una barrera.
+
+Completamos su función como sigue:
+
+```gdscript
+func abrir_puerta():
+	if barrera.visible:
+		return
+	puerta_cerrada.visible = false
+	puerta_cerrada_collider.disabled = true
+```
+
+#### Función `cerrar_puerta()`
+
+Simplemente será lo inverso de la anterior:
+
+```gdscript
+func cerrar_puerta():
+	if barrera.visible:
+		return
+	puerta_cerrada.visible = true
+	puerta_cerrada_collider.visible = false
+```
+
+#### Función `colocar_barrera()`
+
+Alternará la visibilidad y colisión de la barrera, basada en el valor lógico de entrada.
+
+```gdscript
+func colocar_barrera(colocar : bool):
+	barrera.visible = colocar
+	barrera_collider.disabled = !colocar
+	puerta.visible = !colocar
+```
+
+#### Función `colocar_vecino()`
+
+Esta función será llamada cuando queramos definir un cuarto vecino para esta entrada.
+
+```gdscript
+func colocar_vecino(cuarto_vecino : Cuarto):
+	vecino = cuarto_vecino
+	colocar_barrera(false)
+```
+
+Antes de continuar, debemos asegurarnos de definir la clase `EntradaCuarto` justo al inicio de este archivo, antes del `extends`:
+
+`class_name EntradaCuarto`
+
+En la siguiente entrada nos enfocaremos en el programa `cuarto.gd`, donde gestionaremos las entradas y las conectaremos con nuestro `generacion_cuartos.gd`.
+
+
+
+

@@ -1,0 +1,250 @@
+---
+title: "Creando un jueguito Roguelike. Parte 8"
+date: 2026-10-23
+date-modified: 2026-10-23
+categories: [GameDev, Roguelike, Godot]
+draft: false
+---
+
+![](media/godotEngineLogo.png)
+
+## Configurando las entradas al cuarto
+
+Antes de comenzar con el código, necesitamos asegurarnos que la plantilla de nuestro cuarto es correcta. En la escena de la plantilla (`plantilla_cuarto.tscn`) seleccionamos cada nodo de tipo `Entrada` y cambiamos su dirección en el *Inspector* acorde a la que le corresponda. Por ejemplo, `EntradaNorte` ya tendrá su propiedad *Direccion* como `Norte`, pero las demás no.
+
+## Continuando el script
+
+Abrimos el archivo `cuarto.gd` y agregaremos las siguientes variables, justo después del `enum Direccion`:
+
+```gdscript
+# Determina si las puertas deberían estar abiertas
+@export var puertas_siempre_abiertas : bool = false
+
+# Referencia a las entradas
+@onready var entrada_norte : EntradaCuarto = $EntradaNorte
+@onready var entrada_sur : EntradaCuarto = $EntradaSur
+@onready var entrada_oeste : EntradaCuarto = $EntradaOeste
+@onready var entrada_este : EntradaCuarto = $EntradaEste
+
+# Registra el número de enemigos presentes
+var enemigos_presentes : int
+```
+
+### Funciones
+
+Definamos primero las funciones y después las iremos rellenando:
+
+```gdscript
+func _ready():
+	pass
+
+func inicializar():
+	pass
+
+func colocar_vecino(direccion_vecino : Direccion, cuarto_vecino : Cuarto):
+	pass
+
+func jugador_entra(direccion_entrada : Direccion, jugador : CharacterBody2D, primer_cuarto : bool = false):
+	pass
+
+func _enemigo_derrotado(enemigo):
+	pass
+
+func abrir_puertas():
+	pass
+
+func cerrar_puertas():
+	pass
+```
+
+#### Funciones de las puertas
+
+Comencemos con las funciones sencillas. Las funciones relacionadas con las puertas controlarán el estado de las mismas en el cuarto. Todo lo que necesitan hacer es abrir o cerrar la puerta en cada entrada.
+
+Completemos dichas funciones:
+
+```gdscript
+func abrir_puertas():
+	entrada_norte.abrir_puerta()
+	entrada_sur.abrir_puerta()
+	entrada_oeste.abrir_puerta()
+	entrada_este.abrir_puerta()
+
+func cerrar_puertas():
+	entrada_norte.cerrar_puerta()
+	entrada_sur.cerrar_puerta()
+	entrada_oeste.cerrar_puerta()
+	entrada_este.cerrar_puerta()
+```
+
+#### Función del jugador
+
+La función `jugador_entra()` será llamada cuando el jugador entre al cuarto. Gestionará dónde aparecerá y también manejará la apertura de las puertas.
+
+- La función primero verifica la dirección de entrada y coloca al jugador en la posición de aparición adecuada.
+- Verifica si el cuarto es el primero, si es así coloca al jugador en el centro del cuarto.
+- Al final, verifica si hay enemigos en el cuarto, en cuyo caso mantendrá las puertas cerradas.
+
+Editemos esta función:
+
+```gdscript
+func jugador_entra(direccion_entrada : Direccion, jugador : CharacterBody2D, primer_cuarto : bool = false):
+	if direccion_entrada == Direccion.NORTE:
+		jugador.global_position = entrada_norte.jugador_spawn.global_position
+	elif direccion_entrada == Direccion.SUR:
+		jugador.global_position = entrada_sur.jugador_spawn.global_position
+	elif direccion_entrada == Direccion.OESTE:
+		jugador.global_position = entrada_oeste.jugador_spawn.global_position
+	elif direccion_entrada == Direccion.ESTE:
+		jugador.global_position = entrada_este.jugador_spawn.global_position
+
+	if primer_cuarto:
+		jugador.global_position = global_position
+
+	if enemigos_presentes > 0 and not puertas_siempre_abiertas:
+		cerrar_puertas()
+	else:
+		abrir_puertas()
+```
+
+#### Función del cuarto vecino
+
+Es llamada cuando queremos colocar los cuartos vecinos a cada entrada. La editamos como sigue:
+
+```gdscript
+func colocar_vecino(direccion_vecino : Direccion, cuarto_vecino : Cuarto):
+	if direccion_vecino == Direccion.NORTE:
+		entrada_norte.colocar_vecino(cuarto_vecino)
+	elif direccion_vecino == Direccion.SUR:
+		entrada_sur.colocar_vecino(cuarto_vecino)
+	elif direccion_vecino == Direccion.OESTE:
+		entrada_oeste.colocar_vecino(cuarto_vecino)
+	elif direccion_vecino == Direccion.ESTE:
+		entrada_este.colocar_vecino(cuarto_vecino)
+```
+
+#### Actualizando el script `generacion_cuartos.gd`
+
+En la función `_instanciar_cuartos()` verificaremos si el cuarto es el primero y lo iniciamos acorde. Así que la editaremos:
+
+```gdscript
+# Instancia los cuartos
+func _instanciar_cuartos():
+	for x in range(talla_mapa):
+		for y in range(talla_mapa):
+			if _obtener_mapa(x,y) == false:
+				continue
+
+			var cuarto : Cuarto = escena_cuarto.instantiate()
+			var es_primer_cuarto : bool = primer_cuarto_x == x and primer_cuarto_y == y
+
+			get_tree().root.add_child.call_deferred(cuarto)
+			cuartos.append(cuarto)
+
+			cuarto.global_position = Vector2(x,y) * cuartos_pos_desfase
+
+			if es_primer_cuarto:
+				primer_cuarto = cuarto
+
+			cuarto.inicializar()
+```
+
+#### Configurando cuartos vecinos
+
+Para colocar los cuartos vecinos, iteraremos a través de cada cuarto y buscaremos por cuartos vecinos en cada dirección.
+
+Vamos a dejar un loop `for` por fuera del primero:
+
+```gdscript
+	for cuarto in cuartos:
+		pass
+```
+
+### Configurando la posición del mapa
+
+Debemos determinar la posición del mapa en cada cuarto. Esto implica una función que devuelve la posición de un cuarto como un `Vector2i`. Esto último para evitar errores de punto flotante que puedan ocurrir.
+
+Primero definimos la función `obtener_indice_mapa()` que toma un cuarto como argumento y devuelve su posición en el mapa. La escribimos justo antes de la función `_obtener_mapa()`:
+
+```gdscript
+func _obtener_indice_mapa(cuarto : Cuarto) -> Vector2i:
+	return Vector2i(cuarto.global_position / cuartos_pos_desfase)
+```
+
+Luego regresamos a la función `_instanciar_cuartos()` para terminar con el último ciclo que agregamos:
+
+```gdscript
+	for cuarto in cuartos:
+		var pos_mapa : Vector2 = _obtener_indice_mapa(cuarto)
+		var x = pos_mapa.x
+		var y = pos_mapa.y
+```
+
+### Creando la función `obtener_cuarto_del_mapa`
+
+Para recuperar un cuarto desde el mapa basado en sus coordenadas *x* y *y*, necesitamos crear la función que iterará todos los cuartos  y devolverá el cuarto que coincida con las coordenadas dadas:
+
+```gdscript
+func obtener_cuarto_del_mapa(x : int, y : int) -> Cuarto:
+	for cuarto in cuartos:
+		var pos = _obtener_indice_mapa(cuarto)
+		if pos.x != x and pos.y != y:
+			continue
+
+		return cuarto
+	return null
+```
+
+### Buscando vecinos
+
+Ahora usaremos sentencias condicionales para checar los límites del mapa y determinar si un cuarto vecino existe.
+
+Volvamos con el ciclo y volvemos a editarlo agregando esto en su final:
+
+```gdscript
+# Checamos vecino en el norte
+		if y > 0 and _obtener_mapa(x, y - 1):
+			cuarto.colocar_vecino.call_deferred(Cuarto.Direccion.NORTE, obtener_cuarto_del_mapa(x, y - 1)
+			)
+		# Checamos vecino en el sur
+		if y < talla_mapa - 1 and _obtener_mapa(x, y + 1):
+			cuarto.colocar_vecino.call_deferred(Cuarto.Direccion.SUR, obtener_cuarto_del_mapa(x, y + 1)
+			)
+		# Checamos vecino en el oeste
+		if x > 0 and _obtener_mapa(x - 1, y):
+			cuarto.colocar_vecino.call_deferred(Cuarto.Direccion.OESTE, obtener_cuarto_del_mapa(x - 1, y)
+			)
+		# Checamos vecino en el este
+		if x < talla_mapa - 1 and _obtener_mapa(x + 1, y):
+			cuarto.colocar_vecino.call_deferred(Cuarto.Direccion.ESTE, obtener_cuarto_del_mapa(x + 1, y)
+			)
+```
+
+### Manejando barreras y puertas
+
+Para asegurarnos que los cuartos sin vecinos tengan barreras en lugar de puertas, necesitamos modificar el script `entrada_cuarto.gd`. Por defecto, todas las barreras estarán habilitadas y solo se deshabilitarán cuando sea colocado un vecino. Lo haremos en la función `_ready()`.
+
+```gdscript
+func _ready():
+	disparador_salida.body_entered.connect(_on_body_entered_disparador_salida)
+	colocar_barrera(true)
+```
+
+### Apareciendo al jugador
+
+Finalmente, haremos que el jugador aparezca en el primer cuarto. Haremos esto llamando la función `jugador_entra()` en el primer cuarto al final de la función `_instanciar_cuartos()`, pasando el jugador y la dirección de entrada:
+
+```gdscript
+		primer_cuarto.jugador_entra.call_deferred(Cuarto.Direccion.NORTE, jugador, true)
+```
+
+Para que no surjan errores, debemos asignar el jugador en la propiedad *Jugador* del nodo `Node` de la escena `nivel_01`. A dicho nodo vamos a renombrarlo como `GeneracionCuartos`.
+
+Podemos probar el resultado. Si queremos modificamos la cámara a nuestro gusto, para poder ver el mapa completo, aunque no podremos salir del cuarto en el que aparezca el jugador.
+
+
+
+
+
+
+
